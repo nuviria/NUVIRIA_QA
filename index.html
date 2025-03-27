@@ -30,8 +30,8 @@
 
     .mode-toggle {
       position: fixed;
-      top: 14px; /* Mover más abajo (antes era 10px) */
-      right: 20px; /* Mover hacia el centro (antes era 10px) */
+      top: 30px; /* Posición en versión web */
+      right: 50px; /* Posición en versión web */
       background: none; /* Sin fondo */
       border: none; /* Sin borde */
       cursor: pointer;
@@ -357,6 +357,12 @@
 
       .card {
         width: 90%;
+      }
+
+      /* Ajustes para el botón de modo en versión móvil */
+      .mode-toggle {
+        top: 40px; /* Alinear verticalmente con el centro del logo */
+        right: 20px; /* Reducir el desfase horizontal */
       }
     }
   </style>
