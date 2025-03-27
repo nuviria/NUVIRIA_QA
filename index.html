@@ -20,7 +20,7 @@
       background-color: #FFFFFF;
       color: #000000;
       transition: background-color 0.3s, color 0.3s;
-      padding-top: 160px;
+      padding-top: 160px; /* Valor por defecto, será ajustado en versión web */
     }
 
     body.dark-mode {
@@ -30,8 +30,8 @@
 
     .mode-toggle {
       position: fixed;
-      top: 14px; /* Posición en versión web */
-      right: 20px; /* Posición en versión web */
+      top: 60px; /* Ajustado según tu preferencia */
+      right: 20px; /* Ajustado según tu preferencia */
       background: none; /* Sin fondo */
       border: none; /* Sin borde */
       cursor: pointer;
@@ -327,6 +327,14 @@
       font-size: 18px;
     }
 
+    /* Ajustes para la versión web (pantallas mayores a 768px) */
+    @media (min-width: 769px) {
+      body {
+        padding-top: 120px; /* Reducir el espacio superior en la versión web */
+      }
+    }
+
+    /* Ajustes para la versión móvil (pantallas de 768px o menos) */
     @media (max-width: 768px) {
       header {
         padding: 20px;
@@ -361,7 +369,7 @@
 
       /* Ajustes para el botón de modo en versión móvil */
       .mode-toggle {
-        top: 60px; /* Alinear verticalmente con el centro del logo */
+        top: 40px; /* Alinear verticalmente con el centro del logo */
         right: 20px; /* Reducir el desfase horizontal */
       }
     }
