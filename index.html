@@ -1,1 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nuviria Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Incluir Font Awesome para los íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* Estilos base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
 
+    body {
+      background-color: #FFFFFF;
+      color: #000000;
+      transition: background-color 0.3s, color 0.3s;
+      padding-top: 160px;
+    }
+
+    body.dark-mode {
+      background-color: #1C2526;
+      color: #FFFFFF;
+    }
+
+    .mode-toggle {
+      position: fixed;
+      top: 14px; /* Mover más abajo (antes era 10px) */
+      right: 20px; /* Mover hacia el centro (antes era 10px) */
+      background: none; /* Sin fondo */
+      border: none; /* Sin borde */
+      cursor: pointer;
+      font-size: 30px; /* Tamaño del ícono */
+      z-index: 1000;
+      transition: color 0.3s;
+      color: #808080; /* Gris medio en modo claro (luna) */
+    }
+
+    .mode-toggle:hover {
+      color: #000000; /* Negro al hacer hover en modo claro */
+    }
+
+    body.dark-mode .mode-toggle {
+      color: #FFFFFF; /* Blanco en modo oscuro (sol) */
+    }
+
+    body.dark-mode .mode-toggle:hover {
+      color: #FFC107; /* Amarillo al hacer hover en modo oscuro */
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 50px;
+      background-color: #E0E0E0; /* Gris más oscuro en modo claro */
+      border-bottom: 1px solid #C0C0C0; /* Borde más oscuro que el fondo */
+      transition: background-color 0.3s, border-color 0.3s;
+      text-align: center;
+      z-index: 900;
+    }
+
+    body.dark-mode header {
+      background-color: #121616; /* Gris oscuro en modo oscuro */
+      border-bottom: 1px solid #2E3A3B;
+    }
+
+    header img {
+      height: 120px;
+      position: absolute;
+      left: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 901;
+    }
+
+    nav {
+      display: inline-block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000000;
+      font-weight: 400;
+      font-size: 20px;
+      transition: color 0.3s;
+    }
+
+    body.dark-mode .nav-links a {
+      color: #FFFFFF;
+    }
+
+    .nav-links a:hover {
+      color: #FFC107;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      text-align: center;
+      position: relative;
+      padding: 0 20px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      background-color: #FFC107;
+      opacity: 0.2;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 38px;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      background-color: #FFC107;
+      color: #000000;
+      padding: 15px 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 24px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #000000;
+      color: #FFFFFF;
+    }
+
+    body.dark-mode .cta-button:hover {
+      background-color: #FFFFFF;
+      color: #000000;
+    }
+
+    .services {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      background-color: #E0E0E0;
+      padding: 50px 20px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    body.dark-mode .services {
+      background-color: #2E3A3B;
+    }
+
+    .services h2 {
+      font-size: 50px;
+      margin-bottom: 40px;
+    }
+
+    .service-cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: #FFFFFF;
+      padding: 20px;
+      width: 280px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    body.dark-mode .card {
+      background-color: #1C2526;
+    }
+
+    .card h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 20px;
+    }
+
+    .portfolio, .contact {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .portfolio h2, .contact h2 {
+      font-size: 50px;
+      margin-bottom: 40px;
+    }
+
+    .portfolio-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .portfolio-item {
+      width: 300px;
+      height: 200px;
+      background-color: #E0E0E0;
+      border-radius: 10px;
+      transition: background-color 0.3s;
+    }
+
+    body.dark-mode .portfolio-item {
+      background-color: #2E3A3B;
+    }
+
+    .contact {
+      background-color: #E0E0E0;
+      transition: background-color 0.3s;
+    }
+
+    body.dark-mode .contact {
+      background-color: #2E3A3B;
+    }
+
+    .contact form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact input, .contact textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #000000;
+      border-radius: 5px;
+      background-color: #FFFFFF;
+      color: #000000;
+      font-size: 20px;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    body.dark-mode .contact input,
+    body.dark-mode .contact textarea {
+      background-color: #1C2526;
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+
+    .contact button {
+      background-color: #FFC107;
+      color: #000000;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 24px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .contact button:hover {
+      background-color: #000000;
+      color: #FFFFFF;
+    }
+
+    body.dark-mode .contact button:hover {
+      background-color: #FFFFFF;
+      color: #000000;
+    }
+
+    footer {
+      background-color: #000000;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 20px;
+      transition: background-color 0.3s;
+    }
+
+    footer img {
+      height: 30px;
+      margin-bottom: 10px;
+    }
+
+    footer a {
+      color: #FFFFFF;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    footer p {
+      font-size: 18px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+        text-align: left;
+      }
+
+      nav {
+        margin-top: 100px;
+      }
+
+      header img {
+        height: 80px;
+        left: 20px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 24px;
+      }
+
+      .cta-button {
+        font-size: 18px;
+        padding: 10px 20px;
+      }
+
+      .card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="mode-toggle" onclick="toggleMode()">
+    <i class="fas fa-moon"></i> <!-- Ícono de luna por defecto (modo claro) -->
+  </button>
+
+  <header>
+    <img src="images/nuviria-logo.png" alt="Nuviria Studio Logo" id="header-logo">
+    <nav>
+      <div class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#portafolio">Portafolio</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio">
+    <h1>Hacemos tus ideas realidad, sin complicaciones</h1>
+    <p>Videos, animaciones y más, todo en un solo lugar</p>
+    <a href="#contacto" class="cta-button">Contanos tu idea</a>
+  </section>
+
+  <section class="services" id="servicios">
+    <h2>Nuestros Servicios</h2>
+    <div class="service-cards">
+      <div class="card">
+        <h3>Video Promocional</h3>
+        <p>Capturamos la esencia de tu marca en 30 segundos.</p>
+      </div>
+      <div class="card">
+        <h3>Edición de Video</h3>
+        <p>Transformamos tus clips en contenido profesional.</p>
+      </div>
+      <div class="card">
+        <h3>Animaciones</h3>
+        <p>Dale vida a tus ideas con motion graphics.</p>
+      </div>
+      <div class="card">
+        <h3>Edición de Audio</h3>
+        <p>Mejoramos tu audio, voz o música para que suene profesional en cualquier plataforma.</p>
+      </div>
+      <div class="card">
+        <h3>Asesoría y Streaming</h3>
+        <p>Te guiamos y acompañamos en la optimización de tus streamings.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio" id="portafolio">
+    <h2>Nuestro Trabajo</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item"></div>
+      <div class="portfolio-item"></div>
+      <div class="portfolio-item"></div>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <h2>Contáctanos</h2>
+    <form>
+      <input type="text" placeholder="Nombre" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Tu mensaje" rows="5" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <footer>
+    <img src="images/nuviria-logo.png" alt="Nuviria Studio Logo" id="footer-logo">
+    <p>
+      <a href="#">Instagram</a> |
+      <a href="#">LinkedIn</a> |
+      <a href="#">Email</a>
+    </p>
+    <p>© 2025 Nuviria Studio. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function toggleMode() {
+      const body = document.body;
+      const headerLogo = document.getElementById('header-logo');
+      const footerLogo = document.getElementById('footer-logo');
+      const buttonIcon = document.querySelector('.mode-toggle i');
+
+      body.classList.toggle('dark-mode');
+
+      if (body.classList.contains('dark-mode')) {
+        headerLogo.src = 'images/nuviria-logo-dark.png';
+        footerLogo.src = 'images/nuviria-logo-dark.png';
+        buttonIcon.classList.remove('fa-moon');
+        buttonIcon.classList.add('fa-sun'); // Cambia a ícono de sol en modo oscuro
+      } else {
+        headerLogo.src = 'images/nuviria-logo.png';
+        footerLogo.src = 'images/nuviria-logo.png';
+        buttonIcon.classList.remove('fa-sun');
+        buttonIcon.classList.add('fa-moon'); // Cambia a ícono de luna en modo claro
+      }
+    }
+  </script>
+</body>
+</html>
