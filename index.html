@@ -101,8 +101,33 @@
       color: #FFFFFF;
     }
 
+    /* Ajuste del color en estado :hover */
     .nav-links a:hover {
-      color: #FFC107;
+      color: #000000; /* Negro en modo claro para que contraste con el fondo amarillo */
+    }
+
+    body.dark-mode .nav-links a:hover {
+      color: #FFC107; /* Amarillo en modo oscuro, que ya contrasta con el fondo gris oscuro */
+    }
+
+    /* Ajuste del color en estado :active */
+    .nav-links a:active {
+      color: #000000; /* Negro en modo claro para que sea visible al hacer clic */
+    }
+
+    body.dark-mode .nav-links a:active {
+      color: #FFC107; /* Amarillo en modo oscuro para que sea visible al hacer clic */
+    }
+
+    /* Ajuste del estilo de selección (::selection) */
+    .nav-links a::selection {
+      background-color: #000000; /* Fondo negro al seleccionar */
+      color: #FFFFFF; /* Texto blanco al seleccionar */
+    }
+
+    body.dark-mode .nav-links a::selection {
+      background-color: #FFFFFF; /* Fondo blanco al seleccionar en modo oscuro */
+      color: #000000; /* Texto negro al seleccionar en modo oscuro */
     }
 
     .hero {
