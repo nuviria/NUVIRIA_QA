@@ -20,7 +20,7 @@
       background-color: #FFFFFF;
       color: #000000;
       transition: background-color 0.3s, color 0.3s;
-      padding-top: 160px;
+      padding-top: 160px; /* Valor por defecto para la versión web */
     }
 
     body.dark-mode {
@@ -363,6 +363,11 @@
       .mode-toggle {
         top: 40px; /* Alinear verticalmente con el centro del logo */
         right: 20px; /* Reducir el desfase horizontal */
+      }
+
+      /* Reducir el espacio superior en la versión móvil */
+      body {
+        padding-top: 120px; /* Reducir el espacio superior */
       }
     }
   </style>
