@@ -64,6 +64,9 @@
       transition: background-color 0.3s, border-color 0.3s;
       text-align: center;
       z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     body.dark-mode header {
@@ -71,7 +74,7 @@
       border-bottom: 1px solid #2E3A3B;
     }
 
-    header img {
+    header img.header-logo {
       height: 120px;
       position: absolute;
       left: 50px;
@@ -80,8 +83,14 @@
       z-index: 901;
     }
 
+    header img.nav-logo {
+      height: 50px;
+      margin-right: 20px;
+    }
+
     nav {
-      display: inline-block;
+      display: flex;
+      align-items: center;
     }
 
     .nav-links {
@@ -307,7 +316,7 @@
     }
 
     .contact button {
-      background-color: #FFC107;
+      background-color: #FF6F61; /* Color coral para el botón Enviar */
       color: #000000;
       padding: 15px 30px;
       border: none;
@@ -326,6 +335,64 @@
     body.dark-mode .contact button:hover {
       background-color: #FFFFFF;
       color: #000000;
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      background-color: #F5F5F5; /* Color gris claro para mejor integración */
+      color: #000000;
+      padding: 12px 24px;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .social-button i {
+      margin-right: 12px;
+      font-size: 20px;
+    }
+
+    .social-button:hover {
+      background-color: #FF6F61; /* Color coral al pasar el ratón */
+      color: #000000;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .social-button {
+      background-color: #2E3A3B; /* Gris oscuro en modo oscuro */
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+
+    body.dark-mode .social-button:hover {
+      background-color: #FF6F61;
+      color: #000000;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark-mode .social-button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     footer {
@@ -360,15 +427,24 @@
       header {
         padding: 20px;
         text-align: left;
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       nav {
-        margin-top: 100px;
+        margin-top: 10px;
       }
 
-      header img {
+      header img.header-logo {
         height: 80px;
         left: 20px;
+        position: static;
+        transform: none;
+      }
+
+      header img.nav-logo {
+        height: 40px;
+        margin-right: 10px;
       }
 
       .hero h1 {
@@ -396,14 +472,15 @@
     }
   </style>
 </head>
-<body>
+<body class="dark-mode">
   <button class="mode-toggle" onclick="toggleMode()">
-    <i class="fas fa-moon"></i> <!-- Ícono de luna por defecto (modo claro) -->
+    <i class="fas fa-sun"></i> <!-- Ícono de sol por defecto (modo oscuro) -->
   </button>
 
   <header>
-    <img src="images/nuviria-logo.png" alt="Nuviria Studio Logo" id="header-logo">
+    <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo" class="header-logo">
     <nav>
+      <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="nav-logo" class="nav-logo">
       <div class="nav-links">
         <a href="#inicio">Inicio</a>
         <a href="#servicios">Servicios</a>
@@ -462,10 +539,24 @@
       <textarea placeholder="Tu mensaje" rows="5" required></textarea>
       <button type="submit">Enviar</button>
     </form>
+    <div class="social-buttons">
+      <a href="https://www.instagram.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://wa.me/YOUR_PHONE_NUMBER_HERE" target="_blank" class="social-button">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+      <a href="https://www.facebook.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+      <a href="mailto:YOUR_EMAIL_HERE" class="social-button">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+    </div>
   </section>
 
   <footer>
-    <img src="images/nuviria-logo.png" alt="Nuviria Studio Logo" id="footer-logo">
+    <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="footer-logo">
     <p>
       <a href="#">Instagram</a> |
       <a href="#">LinkedIn</a> |
@@ -478,6 +569,7 @@
     function toggleMode() {
       const body = document.body;
       const headerLogo = document.getElementById('header-logo');
+      const navLogo = document.getElementById('nav-logo');
       const footerLogo = document.getElementById('footer-logo');
       const buttonIcon = document.querySelector('.mode-toggle i');
 
@@ -485,11 +577,13 @@
 
       if (body.classList.contains('dark-mode')) {
         headerLogo.src = 'images/nuviria-logo-dark.png';
+        navLogo.src = 'images/nuviria-logo-dark.png';
         footerLogo.src = 'images/nuviria-logo-dark.png';
         buttonIcon.classList.remove('fa-moon');
         buttonIcon.classList.add('fa-sun'); // Cambia a ícono de sol en modo oscuro
       } else {
         headerLogo.src = 'images/nuviria-logo.png';
+        navLogo.src = 'images/nuviria-logo.png';
         footerLogo.src = 'images/nuviria-logo.png';
         buttonIcon.classList.remove('fa-sun');
         buttonIcon.classList.add('fa-moon'); // Cambia a ícono de luna en modo claro
