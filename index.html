@@ -64,9 +64,6 @@
       transition: background-color 0.3s, border-color 0.3s;
       text-align: center;
       z-index: 900;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
 
     body.dark-mode header {
@@ -74,7 +71,7 @@
       border-bottom: 1px solid #2E3A3B;
     }
 
-    header img.header-logo {
+    header img {
       height: 120px;
       position: absolute;
       left: 50px;
@@ -83,14 +80,8 @@
       z-index: 901;
     }
 
-    header img.nav-logo {
-      height: 50px;
-      margin-right: 20px;
-    }
-
     nav {
-      display: flex;
-      align-items: center;
+      display: inline-block;
     }
 
     .nav-links {
@@ -316,7 +307,7 @@
     }
 
     .contact button {
-      background-color: #FF6F61; /* Color coral para el botón Enviar */
+      background-color: #f7d140; /* Nuevo color coral para el botón Enviar */
       color: #000000;
       padding: 15px 30px;
       border: none;
@@ -427,24 +418,15 @@
       header {
         padding: 20px;
         text-align: left;
-        flex-direction: column;
-        align-items: flex-start;
       }
 
       nav {
-        margin-top: 10px;
+        margin-top: 100px;
       }
 
-      header img.header-logo {
+      header img {
         height: 80px;
         left: 20px;
-        position: static;
-        transform: none;
-      }
-
-      header img.nav-logo {
-        height: 40px;
-        margin-right: 10px;
       }
 
       .hero h1 {
@@ -478,9 +460,8 @@
   </button>
 
   <header>
-    <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo" class="header-logo">
+    <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo">
     <nav>
-      <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="nav-logo" class="nav-logo">
       <div class="nav-links">
         <a href="#inicio">Inicio</a>
         <a href="#servicios">Servicios</a>
@@ -569,7 +550,6 @@
     function toggleMode() {
       const body = document.body;
       const headerLogo = document.getElementById('header-logo');
-      const navLogo = document.getElementById('nav-logo');
       const footerLogo = document.getElementById('footer-logo');
       const buttonIcon = document.querySelector('.mode-toggle i');
 
@@ -577,13 +557,11 @@
 
       if (body.classList.contains('dark-mode')) {
         headerLogo.src = 'images/nuviria-logo-dark.png';
-        navLogo.src = 'images/nuviria-logo-dark.png';
         footerLogo.src = 'images/nuviria-logo-dark.png';
         buttonIcon.classList.remove('fa-moon');
         buttonIcon.classList.add('fa-sun'); // Cambia a ícono de sol en modo oscuro
       } else {
         headerLogo.src = 'images/nuviria-logo.png';
-        navLogo.src = 'images/nuviria-logo.png';
         footerLogo.src = 'images/nuviria-logo.png';
         buttonIcon.classList.remove('fa-sun');
         buttonIcon.classList.add('fa-moon'); // Cambia a ícono de luna en modo claro
