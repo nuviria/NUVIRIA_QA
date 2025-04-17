@@ -135,7 +135,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 80vh; /* Ajustado de 95vh a 80vh solo para la sección inicio */
+      min-height: 80vh;
       text-align: center;
       position: relative;
       padding: 0 20px;
@@ -192,7 +192,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh; /* Mantener 95vh para otras secciones */
+      min-height: 95vh;
       background-color: #E0E0E0;
       padding: 50px 20px;
       text-align: center;
@@ -244,7 +244,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh; /* Mantener 95vh para otras secciones */
+      min-height: 95vh;
       padding: 50px 20px;
       text-align: center;
     }
@@ -262,15 +262,56 @@
     }
 
     .portfolio-item {
-      width: 300px;
-      height: 200px;
+      width: 300px; /* Tamaño base para móviles */
+      height: 200px; /* Tamaño base para móviles */
       background-color: #E0E0E0;
       border-radius: 10px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
     body.dark-mode .portfolio-item {
       background-color: #2E3A3B;
+    }
+
+    /* Ajustes para escritorio: agrandar las cajas un 60% */
+    @media (min-width: 851px) {
+      .portfolio-item {
+        width: 480px; /* 300px * 1.6 */
+        height: 320px; /* 200px * 1.6 */
+      }
+
+      .portfolio-item:hover {
+        transform: scale(1.05); /* Leve escalado al pasar el mouse */
+        opacity: 0.9; /* Reducir opacidad para efecto de preview */
+      }
+
+      /* Ajustar también el tamaño de las cajas expandidas en escritorio */
+      .portfolio-item.expanded {
+        width: 960px; /* 600px * 1.6 */
+        height: 640px; /* 400px * 1.6 */
+      }
+    }
+
+    /* Estilo para la caja expandida (base para móviles) */
+    .portfolio-item.expanded {
+      width: 600px;
+      height: 400px;
+      z-index: 10;
+    }
+
+    /* Estilo para el contenido multimedia dentro de la caja */
+    .portfolio-item .media-content {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ajustar el contenido multimedia para que cubra el área */
+    }
+
+    .portfolio-item.expanded .media-content {
+      display: block;
     }
 
     .contact {
@@ -391,7 +432,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh; /* Mantener 95vh para otras secciones */
+      min-height: 95vh;
       background-color: #000000;
       color: #FFFFFF;
       text-align: center;
@@ -459,9 +500,14 @@
       }
 
       .hero {
-        min-height: 80vh; /* Mantener 80vh en móviles */
-        padding-top: 60px; /* Ajustar el padding para compensar el padding-top del body */
-        padding-bottom: 20px; /* Añadir padding inferior para mejor espaciado */
+        min-height: 80vh;
+        padding-top: 20px; /* Reducido de 40px a 20px para centrar mejor el contenido */
+        padding-bottom: 20px;
+      }
+
+      .services, .portfolio, .contact {
+        padding-top: 20px; /* Reducido de 50px a 20px para centrar mejor el contenido */
+        padding-bottom: 20px;
       }
 
       .hero h1 {
@@ -503,7 +549,11 @@
       }
 
       .hero {
-        padding-top: 50px; /* Reducir aún más el padding en pantallas muy pequeñas */
+        padding-top: 10px; /* Reducido de 30px a 10px para centrar mejor el contenido */
+      }
+
+      .services, .portfolio, .contact {
+        padding-top: 10px; /* Reducido para centrar mejor el contenido */
       }
     }
   </style>
@@ -560,14 +610,23 @@
   <section class="portfolio" id="portafolio">
     <h2>Nuestro Trabajo</h2>
     <div class="portfolio-grid">
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
-      <div class="portfolio-item"></div>
+      <div class="portfolio-item" data-type="Video" data-src="media/project1.mp4">
+        <img class="media-content" src="" alt="Project 1">
+      </div>
+      <div class="portfolio-item" data-type="video" data-src="media/project2.mp4">
+        <video class="media-content" src="" muted></video>
+      </div>
+      <div class="portfolio-item" data-type="image" data-src="media/project3">
+        <img class="media-content" src="" alt="Project 3">
+      </div>
+      <div class="portfolio-item" data-type="video" data-src="media/project4.mp4">
+        <img class="media-content" src="" alt="Project 4">
+      </div>
     </div>
   </section>
 
   <section class="contact" id="contacto">
-    <h2>Contactanos</h2>
+    <h2>Contáctanos</h2>
     <form>
       <input type="text" placeholder="Nombre" required>
       <input type="email" placeholder="Email" required>
@@ -595,9 +654,9 @@
       <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
     </a>
     <p>
-      <a href="#">Instagram</a> |
-      <a href="#">LinkedIn</a> |
-      <a href="#">Email</a>
+      <a href="https://www.instagram.com/nuviria/" target="_blank">Instagram</a> |
+      <a href="#" target="_blank">LinkedIn</a> |
+      <a href="mailto:nuviriastudio@gmail.com">Email</a>
     </p>
     <p>© 2025 Nuviria Studio. Todos los derechos reservados.</p>
   </footer>
@@ -623,6 +682,67 @@
         buttonIcon.classList.add('fa-moon'); // Cambia a ícono de luna en modo claro
       }
     }
+
+    // Script para manejar la interactividad del portafolio
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      item.addEventListener('click', function() {
+        // Si ya está expandido, lo contraemos
+        if (this.classList.contains('expanded')) {
+          this.classList.remove('expanded');
+          const media = this.querySelector('.media-content');
+          if (media.tagName === 'VIDEO') {
+            media.pause(); // Pausar el video si es un video
+          }
+          return;
+        }
+
+        // Contraer todas las demás cajas expandidas
+        document.querySelectorAll('.portfolio-item.expanded').forEach(expandedItem => {
+          expandedItem.classList.remove('expanded');
+          const expandedMedia = expandedItem.querySelector('.media-content');
+          if (expandedMedia.tagName === 'VIDEO') {
+            expandedMedia.pause();
+          }
+        });
+
+        // Expandir la caja actual
+        this.classList.add('expanded');
+
+        // Cargar el contenido multimedia
+        const media = this.querySelector('.media-content');
+        const src = this.getAttribute('data-src');
+        const type = this.getAttribute('data-type');
+
+        if (media.src !== src) {
+          media.src = src; // Asignar la fuente del archivo multimedia
+        }
+
+        if (type === 'video' && media.tagName === 'VIDEO') {
+          media.play(); // Reproducir el video o GIF
+        }
+      });
+    });
+
+    // Script para alinear las secciones con la línea inferior del header
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault(); // Evitar el comportamiento de desplazamiento por defecto
+
+        const targetId = this.getAttribute('href').substring(1); // Obtener el ID de la sección (sin el #)
+        const targetSection = document.getElementById(targetId); // Encontrar la sección objetivo
+        const header = document.querySelector('header'); // Obtener el header
+        const headerHeight = header.getBoundingClientRect().height; // Obtener la altura del header dinámicamente
+
+        // Calcular la posición de la sección ajustada por la altura del header
+        const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+        // Desplazar suavemente a la posición ajustada
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      });
+    });
   </script>
 </body>
 </html>
