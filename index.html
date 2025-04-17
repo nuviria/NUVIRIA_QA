@@ -63,7 +63,7 @@
       border-bottom: 1px solid #C0C0C0; /* Borde más oscuro que el fondo */
       transition: background-color 0.3s, border-color 0.3s;
       text-align: center;
-      z-index: 900;
+      z-index: 999; /* Aumentar el z-index para asegurar que esté por encima de otros elementos */
     }
 
     body.dark-mode header {
@@ -135,7 +135,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 80vh;
+      min-height: 95vh; /* Ajustado de 80vh a 95vh */
       text-align: center;
       position: relative;
       padding: 0 20px;
@@ -192,7 +192,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 80vh;
+      min-height: 95vh; /* Ajustado de 80vh a 95vh */
       background-color: #E0E0E0;
       padding: 50px 20px;
       text-align: center;
@@ -244,7 +244,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 80vh;
+      min-height: 95vh; /* Ajustado de 80vh a 95vh */
       padding: 50px 20px;
       text-align: center;
     }
@@ -387,16 +387,21 @@
     }
 
     footer {
+      display: flex; /* Usar flexbox para centrar el contenido */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 95vh; /* Ya ajustado a 95vh */
       background-color: #000000;
       color: #FFFFFF;
       text-align: center;
-      padding: 20px;
+      padding: 50px 20px; /* Ajustar el padding para que sea consistente con las otras secciones */
       transition: background-color 0.3s;
     }
 
     footer img {
       height: 200px; /* Aumentado de 30px a 70px */
-      margin-bottom: 10px;
+      margin-bottom: 20px; /* Aumentar el margen inferior para mejor espaciado */
     }
 
     footer a {
@@ -408,25 +413,49 @@
 
     footer p {
       font-size: 18px;
+      margin-top: 10px; /* Añadir margen superior para espaciado */
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 850px) { /* Mantener el media query ajustado */
       body {
         padding-top: 120px; /* Reducir el espacio superior en la versión móvil */
       }
 
       header {
-        padding: 20px;
+        padding: 10px 20px; /* Reducir el padding para un diseño más compacto */
         text-align: left;
-      }
-
-      nav {
-        margin-top: 100px;
+        display: flex; /* Usar flexbox para organizar logo y navegación */
+        align-items: center; /* Centrar verticalmente */
+        justify-content: space-between; /* Distribuir espacio entre logo y navegación */
+        position: fixed; /* Asegurar que el header esté fijo */
+        top: 0; /* Anclar a la parte superior */
+        left: 0; /* Asegurar que ocupe todo el ancho */
+        width: 100%; /* Asegurar que ocupe todo el ancho */
       }
 
       header img {
-        height: 10px; /* Reducido de 30px a 10px */
-        left: 20px;
+        height: 30px; /* Aumentar el tamaño del logo de 10px a 30px */
+        position: static; /* Cambiar a posición estática para que flexbox lo gestione */
+        transform: none; /* Eliminar la transformación */
+      }
+
+      nav {
+        margin-top: 0; /* Eliminar el margen superior excesivo */
+        padding-right: 40px; /* Reducir el padding para un mejor centrado */
+        flex: 1; /* Hacer que el nav ocupe el espacio disponible */
+        display: flex;
+        justify-content: center; /* Centrar el contenido del nav */
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 10px; /* Ajustar el espacio entre enlaces */
+        flex-wrap: wrap; /* Permitir que los enlaces se envuelvan si no caben */
+        justify-content: center; /* Centrar los enlaces */
+      }
+
+      .nav-links a {
+        font-size: 14px; /* Tamaño fijo más legible */
       }
 
       .hero h1 {
@@ -448,8 +477,23 @@
 
       /* Ajustes para el botón de modo en versión móvil */
       .mode-toggle {
-        top: 60px; /* Alinear verticalmente con el centro del logo */
-        right: 20px; /* Reducir el desfase horizontal */
+        top: 10px; /* Ajustar para alinearse con el header */
+        right: 20px; /* Mantener a la derecha */
+      }
+    }
+
+    /* Media query adicional para pantallas muy pequeñas */
+    @media (max-width: 400px) {
+      .nav-links {
+        gap: 8px; /* Reducir aún más el espacio entre enlaces */
+      }
+
+      .nav-links a {
+        font-size: 12px; /* Tamaño fijo más legible para pantallas pequeñas */
+      }
+
+      nav {
+        padding-right: 40px; /* Mantener el padding */
       }
     }
   </style>
@@ -536,8 +580,10 @@
     </div>
   </section>
 
-  <footer>
-    <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
+  <footer id="footer">
+    <a href="#inicio">
+      <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
+    </a>
     <p>
       <a href="#">Instagram</a> |
       <a href="#">LinkedIn</a> |
