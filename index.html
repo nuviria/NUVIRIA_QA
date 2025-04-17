@@ -135,7 +135,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh; /* Ajustado de 80vh a 95vh */
+      min-height: 80vh; /* Ajustado de 95vh a 80vh solo para la sección inicio */
       text-align: center;
       position: relative;
       padding: 0 20px;
@@ -192,7 +192,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh; /* Ajustado de 80vh a 95vh */
+      min-height: 95vh; /* Mantener 95vh para otras secciones */
       background-color: #E0E0E0;
       padding: 50px 20px;
       text-align: center;
@@ -244,7 +244,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh; /* Ajustado de 80vh a 95vh */
+      min-height: 95vh; /* Mantener 95vh para otras secciones */
       padding: 50px 20px;
       text-align: center;
     }
@@ -391,7 +391,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh; /* Ya ajustado a 95vh */
+      min-height: 95vh; /* Mantener 95vh para otras secciones */
       background-color: #000000;
       color: #FFFFFF;
       text-align: center;
@@ -458,6 +458,12 @@
         font-size: 14px; /* Tamaño fijo más legible */
       }
 
+      .hero {
+        min-height: 80vh; /* Mantener 80vh en móviles */
+        padding-top: 60px; /* Ajustar el padding para compensar el padding-top del body */
+        padding-bottom: 20px; /* Añadir padding inferior para mejor espaciado */
+      }
+
       .hero h1 {
         font-size: 36px;
       }
@@ -494,6 +500,10 @@
 
       nav {
         padding-right: 40px; /* Mantener el padding */
+      }
+
+      .hero {
+        padding-top: 50px; /* Reducir aún más el padding en pantallas muy pequeñas */
       }
     }
   </style>
