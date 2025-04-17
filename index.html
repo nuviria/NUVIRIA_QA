@@ -71,6 +71,15 @@
       border-bottom: 1px solid #2E3A3B;
     }
 
+    header img {
+      height: 50px; /* Reducido de 70px a 50px */
+      position: absolute;
+      left: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 901;
+    }
+
     nav {
       display: inline-block;
     }
@@ -144,21 +153,6 @@
       opacity: 0.2;
       border-radius: 50%;
       z-index: -1;
-    }
-
-    .hero-logo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      height: 50px; /* Tamaño actual del logo */
-      opacity: 0.2; /* Igualar la transparencia del círculo */
-      z-index: 0; /* Detrás del contenido del hero, pero delante del círculo */
-      transition: opacity 0.3s;
-    }
-
-    body.dark-mode .hero-logo {
-      opacity: 0.2; /* Mantener la misma transparencia en modo oscuro */
     }
 
     .hero h1 {
@@ -401,7 +395,7 @@
     }
 
     footer img {
-      height: 70px; /* Tamaño actual del logo del pie */
+      height: 200px; /* Aumentado de 30px a 70px */
       margin-bottom: 10px;
     }
 
@@ -427,11 +421,12 @@
       }
 
       nav {
-        margin-top: 80px; /* Ajustado por la ausencia del logo */
+        margin-top: 100px;
       }
 
-      .hero-logo {
-        height: 10px; /* Tamaño móvil del logo */
+      header img {
+        height: 10px; /* Reducido de 30px a 10px */
+        left: 20px;
       }
 
       .hero h1 {
@@ -465,6 +460,7 @@
   </button>
 
   <header>
+    <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo">
     <nav>
       <div class="nav-links">
         <a href="#inicio">Inicio</a>
@@ -476,9 +472,8 @@
   </header>
 
   <section class="hero" id="inicio">
-    <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="hero-logo" class="hero-logo">
-    <h1>Hacemos tus ideas realidad, sin complicaciones</h1>
-    <p>Videos, animaciones y más, todo en un solo lugar</p>
+    <h1>Hacemos tus ideas realidad</h1>
+    <p>Videos, animaciones y mucho más, todo en un solo lugar</p>
     <a href="#contacto" class="cta-button">Contanos tu idea</a>
   </section>
 
@@ -526,16 +521,16 @@
       <button type="submit">Enviar</button>
     </form>
     <div class="social-buttons">
-      <a href="https://www.instagram.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
+      <a href="https://www.instagram.com/nuviria/" target="_blank" class="social-button">
         <i class="fab fa-instagram"></i> Instagram
       </a>
-      <a href="https://wa.me/YOUR_PHONE_NUMBER_HERE" target="_blank" class="social-button">
+      <a href="https://wa.me/+5491173692682" target="_blank" class="social-button">
         <i class="fab fa-whatsapp"></i> WhatsApp
       </a>
       <a href="https://www.facebook.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
         <i class="fab fa-facebook-f"></i> Facebook
       </a>
-      <a href="mailto:YOUR_EMAIL_HERE" class="social-button">
+      <a href="mailto:nuviriastudio@gmail.com" class="social-button">
         <i class="fas fa-envelope"></i> Email
       </a>
     </div>
@@ -554,49 +549,24 @@
   <script>
     function toggleMode() {
       const body = document.body;
-      const heroLogo = document.getElementById('hero-logo');
+      const headerLogo = document.getElementById('header-logo');
       const footerLogo = document.getElementById('footer-logo');
       const buttonIcon = document.querySelector('.mode-toggle i');
-      const isMobile = window.innerWidth <= 768;
 
       body.classList.toggle('dark-mode');
 
-      if (isMobile) {
-        heroLogo.src = 'images/nuviria-logo-pie.png'; // Usar nuviria-logo-pie en móvil
-      } else {
-        if (body.classList.contains('dark-mode')) {
-          heroLogo.src = 'images/nuviria-logo-dark.png';
-        } else {
-          heroLogo.src = 'images/nuviria-logo.png';
-        }
-      }
-
-      footerLogo.src = 'images/nuviria-logo-pie.png';
-
       if (body.classList.contains('dark-mode')) {
+        headerLogo.src = 'images/nuviria-logo-dark.png';
+        footerLogo.src = 'images/nuviria-logo-pie.png';
         buttonIcon.classList.remove('fa-moon');
         buttonIcon.classList.add('fa-sun'); // Cambia a ícono de sol en modo oscuro
       } else {
+        headerLogo.src = 'images/nuviria-logo.png';
+        footerLogo.src = 'images/nuviria-logo-pie.png';
         buttonIcon.classList.remove('fa-sun');
         buttonIcon.classList.add('fa-moon'); // Cambia a ícono de luna en modo claro
       }
     }
-
-    // Ejecutar toggleMode al cargar para asegurar el logo correcto
-    window.onload = toggleMode;
-
-    // Ajustar el logo al cambiar el tamaño de la ventana
-    window.onresize = function() {
-      const heroLogo = document.getElementById('hero-logo');
-      const isMobile = window.innerWidth <= 768;
-      const isDarkMode = document.body.classList.contains('dark-mode');
-
-      if (isMobile) {
-        heroLogo.src = 'images/nuviria-logo-pie.png';
-      } else {
-        heroLogo.src = isDarkMode ? 'images/nuviria-logo-dark.png' : 'images/nuviria-logo.png';
-      }
-    };
   </script>
 </body>
 </html>
