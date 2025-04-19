@@ -11,7 +11,8 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif jā
+      font-family: 'Montserrat', sans-serif;
+    }
 
     body {
       background-color: #FFFFFF;
@@ -693,11 +694,7 @@
 <body class="dark-mode">
   <div class="loading-screen">
     <video id="loading-animation" autoplay muted playsinline preload="auto">
-      <!-- Versión para escritorio -->
-      <source src="media/logo-animation.mp4" type="video/mp4" media="(min-width: 851px)">
-      <!-- Versión para móviles -->
-      <source src="media/logo-animation-mobile.mp4" type="video/mp4" media="(max-width: 850px)">
-      <!-- Fallback -->
+      <source src="media/logo-animation.mp4" type="video/mp4">
       <img src="images/nuviria-logo-dark.png" alt="Nuviria Logo Fallback">
     </video>
     <div class="fallback-text">Cargando...</div>
@@ -755,6 +752,7 @@
     <section class="portfolio" id="portafolio">
       <h2>Nuestro Trabajo</h2>
       <div class="portfolio-grid">
+        <!-- Elementos originales con versiones de baja y alta resolución -->
         <div class="portfolio-item" data-type="image" data-src="https://placehold.co/960x640" data-src-low="https://placehold.co/480x320">
           <img class="media-content" src="" alt="Project 1">
           <div class="media-error">Error al cargar el contenido</div>
