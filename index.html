@@ -49,6 +49,20 @@
       display: block;
     }
 
+    /* Mostrar solo el video correcto según el tamaño de pantalla */
+    #loading-animation-mobile {
+      display: none;
+    }
+
+    @media (max-width: 850px) {
+      #loading-animation {
+        display: none;
+      }
+      #loading-animation-mobile {
+        display: block;
+      }
+    }
+
     .loading-screen .fallback-text {
       color: #FFFFFF;
       font-size: 24px;
@@ -693,8 +707,14 @@
 </head>
 <body class="dark-mode">
   <div class="loading-screen">
+    <!-- Video para escritorio -->
     <video id="loading-animation" autoplay muted playsinline preload="auto">
       <source src="media/logo-animation.mp4" type="video/mp4">
+      <img src="images/nuviria-logo-dark.png" alt="Nuviria Logo Fallback">
+    </video>
+    <!-- Video para móvil -->
+    <video id="loading-animation-mobile" autoplay muted playsinline preload="auto">
+      <source src="media/logo-mobile.mp4" type="video/mp4">
       <img src="images/nuviria-logo-dark.png" alt="Nuviria Logo Fallback">
     </video>
     <div class="fallback-text">Cargando...</div>
@@ -752,23 +772,22 @@
     <section class="portfolio" id="portafolio">
       <h2>Nuestro Trabajo</h2>
       <div class="portfolio-grid">
-        <!-- Elementos originales con versiones de baja y alta resolución -->
-        <div class="portfolio-item" data-type="image" data-src="https://placehold.co/960x640" data-src-low="https://placehold.co/480x320">
+        <div class="portfolio-item" data-type="image" data-src="media/project1.jpg" data-src-low="media/project11.jpg">
           <img class="media-content" src="" alt="Project 1">
           <div class="media-error">Error al cargar el contenido</div>
           <button class="expand-button">Ver en tamaño completo</button>
         </div>
-        <div class="portfolio-item" data-type="video" data-src="https://www.w3schools.com/html/mov_bbb.mp4" data-src-low="https://www.w3schools.com/html/mov_bbb.mp4">
+        <div class="portfolio-item" data-type="video" data-src="media/project2.mp4" data-src-low="media/project22.mp4">
           <video class="media-content" src="" muted preload="auto"></video>
           <div class="media-error">Error al cargar el contenido</div>
           <button class="expand-button">Ver en tamaño completo</button>
         </div>
-        <div class="portfolio-item" data-type="image" data-src="https://placehold.co/960x640" data-src-low="https://placehold.co/480x320">
+        <div class="portfolio-item" data-type="image" data-src="media/project3.jpg" data-src-low="media/project33.jpg">
           <img class="media-content" src="" alt="Project 3">
           <div class="media-error">Error al cargar el contenido</div>
           <button class="expand-button">Ver en tamaño completo</button>
         </div>
-        <div class="portfolio-item" data-type="video" data-src="https://media.giphy.com/media/3o7TKz9bH2vU6zQ2kI/giphy.gif" data-src-low="https://media.giphy.com/media/3o7TKz9bH2vU6zQ2kI/giphy-preview.gif">
+        <div class="portfolio-item" data-type="video" data-src="media/project4.gif" data-src-low="media/project4.gif">
           <img class="media-content" src="" alt="Project 4">
           <div class="media-error">Error al cargar el contenido</div>
           <button class="expand-button">Ver en tamaño completo</button>
@@ -825,6 +844,7 @@
       const loadingScreen = document.querySelector('.loading-screen');
       const mainContent = document.querySelector('.main-content');
       const loadingAnimation = document.getElementById('loading-animation');
+      const loadingAnimationMobile = document.getElementById('loading-animation-mobile');
       const fullscreenView = document.getElementById('fullscreen-view');
       const fullscreenContent = document.getElementById('fullscreen-content');
       const fullscreenClose = document.getElementById('fullscreen-close');
@@ -834,14 +854,28 @@
         mainContent.classList.add('visible');
       }
 
+      // Eventos para el video de escritorio
       loadingAnimation.addEventListener('canplay', function() {
-        console.log('Video listo para reproducirse');
+        console.log('Video de escritorio listo para reproducirse');
       });
 
       loadingAnimation.addEventListener('ended', hideLoadingScreen);
 
       loadingAnimation.addEventListener('error', function() {
-        console.error('Error al cargar el video');
+        console.error('Error al cargar el video de escritorio');
+        loadingScreen.classList.add('video-failed');
+        setTimeout(hideLoadingScreen, 2000);
+      });
+
+      // Eventos para el video móvil
+      loadingAnimationMobile.addEventListener('canplay', function() {
+        console.log('Video móvil listo para reproducirse');
+      });
+
+      loadingAnimationMobile.addEventListener('ended', hideLoadingScreen);
+
+      loadingAnimationMobile.addEventListener('error', function() {
+        console.error('Error al cargar el video móvil');
         loadingScreen.classList.add('video-failed');
         setTimeout(hideLoadingScreen, 2000);
       });
