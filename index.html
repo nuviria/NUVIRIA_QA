@@ -28,6 +28,59 @@
       color: #FFFFFF;
     }
 
+    /* Pantalla de carga */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000; /* Fondo negro para la pantalla de carga */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Asegurar que esté por encima de todo */
+      transition: opacity 0.5s ease;
+    }
+
+    .loading-screen video,
+    .loading-screen img {
+      width: 50%; /* Ajustar el tamaño de la animación */
+      max-width: 960px; /* Limitar el tamaño máximo */
+      min-width: 300px; /* Asegurar un tamaño mínimo */
+      height: auto;
+      display: block; /* Asegurar que el video sea visible */
+    }
+
+    /* Respaldo visual si el video no se carga */
+    .loading-screen .fallback-text {
+      color: #FFFFFF;
+      font-size: 24px;
+      text-align: center;
+      display: none; /* Mostrar solo si el video falla */
+    }
+
+    /* Mostrar el texto de respaldo si el video no se carga */
+    .loading-screen.video-failed .fallback-text {
+      display: block;
+    }
+
+    /* Ocultar la pantalla de carga cuando termine */
+    .loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none; /* Evitar interacciones una vez oculta */
+    }
+
+    /* Contenido principal (inicialmente oculto) */
+    .main-content {
+      display: none;
+    }
+
+    /* Mostrar el contenido principal cuando la carga termine */
+    .main-content.visible {
+      display: block;
+    }
+
     .mode-toggle {
       position: fixed;
       top: 14px; /* Posición en versión de escritorio */
@@ -559,109 +612,154 @@
   </style>
 </head>
 <body class="dark-mode">
-  <button class="mode-toggle" onclick="toggleMode()">
-    <i class="fas fa-sun"></i> <!-- Ícono de sol por defecto (modo oscuro) -->
-  </button>
+  <!-- Pantalla de carga con la animación del logo -->
+  <div class="loading-screen">
+    <video id="loading-animation" autoplay muted playsinline preload="auto">
+      <source src="media/logo-animation.mp4" type="video/mp4">
+      <!-- Respaldo si el video no se carga -->
+      <img src="images/nuviria-logo-dark.png" alt="Nuviria Logo Fallback">
+    </video>
+    <!-- Texto de respaldo si el video falla -->
+    <div class="fallback-text">Cargando...</div>
+  </div>
 
-  <header>
-    <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo">
-    <nav>
-      <div class="nav-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#portafolio">Portafolio</a>
-        <a href="#contacto">Contacto</a>
-      </div>
-    </nav>
-  </header>
+  <!-- Contenido principal (inicialmente oculto) -->
+  <div class="main-content">
+    <button class="mode-toggle" onclick="toggleMode()">
+      <i class="fas fa-sun"></i> <!-- Ícono de sol por defecto (modo oscuro) -->
+    </button>
 
-  <section class="hero" id="inicio">
-    <h1>Hacemos tus ideas realidad</h1>
-    <p>Videos, animaciones y mucho más, todo en un solo lugar</p>
-    <a href="#contacto" class="cta-button">Contanos tu idea</a>
-  </section>
+    <header>
+      <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo">
+      <nav>
+        <div class="nav-links">
+          <a href="#inicio">Inicio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#portafolio">Portafolio</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </nav>
+    </header>
 
-  <section class="services" id="servicios">
-    <h2>Nuestros Servicios</h2>
-    <div class="service-cards">
-      <div class="card">
-        <h3>Video Promocional</h3>
-        <p>Capturamos la esencia de tu marca en 30 segundos.</p>
-      </div>
-      <div class="card">
-        <h3>Edición de Video</h3>
-        <p>Transformamos tus clips en contenido profesional.</p>
-      </div>
-      <div class="card">
-        <h3>Animaciones</h3>
-        <p>Dale vida a tus ideas con motion graphics.</p>
-      </div>
-      <div class="card">
-        <h3>Edición de Audio</h3>
-        <p>Mejoramos tu audio, voz o música para que suene profesional en cualquier plataforma.</p>
-      </div>
-      <div class="card">
-        <h3>Asesoría y Streaming</h3>
-        <p>Te guiamos y acompañamos en la optimización de tus streamings.</p>
-      </div>
-    </div>
-  </section>
+    <section class="hero" id="inicio">
+      <h1>Hacemos tus ideas realidad</h1>
+      <p>Videos, animaciones y mucho más, todo en un solo lugar</p>
+      <a href="#contacto" class="cta-button">Contanos tu idea</a>
+    </section>
 
-  <section class="portfolio" id="portafolio">
-    <h2>Nuestro Trabajo</h2>
-    <div class="portfolio-grid">
-      <div class="portfolio-item" data-type="Video" data-src="media/project1.mp4">
-        <img class="media-content" src="" alt="Project 1">
+    <section class="services" id="servicios">
+      <h2>Nuestros Servicios</h2>
+      <div class="service-cards">
+        <div class="card">
+          <h3>Video Promocional</h3>
+          <p>Capturamos la esencia de tu marca en 30 segundos.</p>
+        </div>
+        <div class="card">
+          <h3>Edición de Video</h3>
+          <p>Transformamos tus clips en contenido profesional.</p>
+        </div>
+        <div class="card">
+          <h3>Animaciones</h3>
+          <p>Dale vida a tus ideas con motion graphics.</p>
+        </div>
+        <div class="card">
+          <h3>Edición de Audio</h3>
+          <p>Mejoramos tu audio, voz o música para que suene profesional en cualquier plataforma.</p>
+        </div>
+        <div class="card">
+          <h3>Asesoría y Streaming</h3>
+          <p>Te guiamos y acompañamos en la optimización de tus streamings.</p>
+        </div>
       </div>
-      <div class="portfolio-item" data-type="video" data-src="media/project2.mp4">
-        <video class="media-content" src="" muted></video>
-      </div>
-      <div class="portfolio-item" data-type="image" data-src="media/project3">
-        <img class="media-content" src="" alt="Project 3">
-      </div>
-      <div class="portfolio-item" data-type="video" data-src="media/project4.mp4">
-        <img class="media-content" src="" alt="Project 4">
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="contact" id="contacto">
-    <h2>Contáctanos</h2>
-    <form>
-      <input type="text" placeholder="Nombre" required>
-      <input type="email" placeholder="Email" required>
-      <textarea placeholder="Tu mensaje" rows="5" required></textarea>
-      <button type="submit">Enviar</button>
-    </form>
-    <div class="social-buttons">
-      <a href="https://www.instagram.com/nuviria/" target="_blank" class="social-button">
-        <i class="fab fa-instagram"></i> Instagram
+    <section class="portfolio" id="portafolio">
+      <h2>Nuestro Trabajo</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item" data-type="image" data-src="media/project1.jpg">
+          <img class="media-content" src="" alt="Project 1">
+        </div>
+        <div class="portfolio-item" data-type="video" data-src="media/project2.mp4">
+          <video class="media-content" src="" muted></video>
+        </div>
+        <div class="portfolio-item" data-type="image" data-src="media/project3.jpg">
+          <img class="media-content" src="" alt="Project 3">
+        </div>
+        <div class="portfolio-item" data-type="video" data-src="media/project4.gif">
+          <img class="media-content" src="" alt="Project 4">
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <h2>Contáctanos</h2>
+      <form>
+        <input type="text" placeholder="Nombre" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Tu mensaje" rows="5" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+      <div class="social-buttons">
+        <a href="https://www.instagram.com/nuviria/" target="_blank" class="social-button">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://wa.me/+5491173692682" target="_blank" class="social-button">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="https://www.facebook.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </a>
+        <a href="mailto:nuviriastudio@gmail.com" class="social-button">
+          <i class="fas fa-envelope"></i> Email
+        </a>
+      </div>
+    </section>
+
+    <footer id="footer">
+      <a href="#inicio">
+        <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
       </a>
-      <a href="https://wa.me/+5491173692682" target="_blank" class="social-button">
-        <i class="fab fa-whatsapp"></i> WhatsApp
-      </a>
-      <a href="https://www.facebook.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
-        <i class="fab fa-facebook-f"></i> Facebook
-      </a>
-      <a href="mailto:nuviriastudio@gmail.com" class="social-button">
-        <i class="fas fa-envelope"></i> Email
-      </a>
-    </div>
-  </section>
-
-  <footer id="footer">
-    <a href="#inicio">
-      <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
-    </a>
-    <p>
-      <a href="https://www.instagram.com/nuviria/" target="_blank">Instagram</a> |
-      <a href="#" target="_blank">LinkedIn</a> |
-      <a href="mailto:nuviriastudio@gmail.com">Email</a>
-    </p>
-    <p>© 2025 Nuviria Studio. Todos los derechos reservados.</p>
-  </footer>
+      <p>
+        <a href="https://www.instagram.com/nuviria/" target="_blank">Instagram</a> |
+        <a href="#" target="_blank">LinkedIn</a> |
+        <a href="mailto:nuviriastudio@gmail.com">Email</a>
+      </p>
+      <p>© 2025 Nuviria Studio. Todos los derechos reservados.</p>
+    </footer>
+  </div>
 
   <script>
+    // Manejar la pantalla de carga
+    document.addEventListener('DOMContentLoaded', function() {
+      const loadingScreen = document.querySelector('.loading-screen');
+      const mainContent = document.querySelector('.main-content');
+      const loadingAnimation = document.getElementById('loading-animation');
+
+      // Función para ocultar la pantalla de carga y mostrar el contenido principal
+      function hideLoadingScreen() {
+        loadingScreen.classList.add('hidden');
+        mainContent.classList.add('visible');
+      }
+
+      // Detectar si el video se puede reproducir
+      loadingAnimation.addEventListener('canplay', function() {
+        console.log('Video listo para reproducirse');
+      });
+
+      // Si la animación es un video, esperar a que termine
+      loadingAnimation.addEventListener('ended', hideLoadingScreen);
+
+      // Detectar errores en la carga del video
+      loadingAnimation.addEventListener('error', function() {
+        console.error('Error al cargar el video');
+        loadingScreen.classList.add('video-failed'); // Mostrar el texto de respaldo
+        setTimeout(hideLoadingScreen, 2000); // Ocultar después de 2 segundos si hay un error
+      });
+
+      // Respaldo: ocultar la pantalla de carga después de 5 segundos (en caso de que el video no se cargue)
+      setTimeout(hideLoadingScreen, 5000);
+    });
+
     function toggleMode() {
       const body = document.body;
       const headerLogo = document.getElementById('header-logo');
