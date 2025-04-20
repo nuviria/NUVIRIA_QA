@@ -49,7 +49,6 @@
       display: block;
     }
 
-    /* Mostrar solo el video correcto según el tamaño de pantalla */
     #loading-animation-mobile {
       display: none;
     }
@@ -342,17 +341,6 @@
         transform: scale(1.05);
         opacity: 0.9;
       }
-
-      .portfolio-item.expanded {
-        width: 960px;
-        height: 640px;
-      }
-    }
-
-    .portfolio-item.expanded {
-      width: 600px;
-      height: 400px;
-      z-index: 10;
     }
 
     .portfolio-item .media-content {
@@ -360,6 +348,8 @@
       height: 100%;
       object-fit: cover;
       background-color: #000000;
+      opacity: 1;
+      transition: opacity 0.3s;
     }
 
     .portfolio-item .media-error {
@@ -378,31 +368,6 @@
 
     .portfolio-item.media-failed .media-error {
       display: block;
-    }
-
-    .portfolio-item .expand-button {
-      display: none;
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background-color: #FFC107;
-      color: #000000;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      transition: background-color 0.3s;
-    }
-
-    .portfolio-item.expanded .expand-button {
-      display: block;
-    }
-
-    .portfolio-item .expand-button:hover {
-      background-color: #000000;
-      color: #FFFFFF;
     }
 
     .fullscreen-view {
@@ -707,12 +672,10 @@
 </head>
 <body class="dark-mode">
   <div class="loading-screen">
-    <!-- Video para escritorio -->
     <video id="loading-animation" autoplay muted playsinline preload="auto">
       <source src="media/logo-animation.mp4" type="video/mp4">
       <img src="images/nuviria-logo-dark.png" alt="Nuviria Logo Fallback">
     </video>
-    <!-- Video para móvil -->
     <video id="loading-animation-mobile" autoplay muted playsinline preload="auto">
       <source src="media/logo-mobile.mp4" type="video/mp4">
       <img src="images/nuviria-logo-dark.png" alt="Nuviria Logo Fallback">
@@ -772,25 +735,21 @@
     <section class="portfolio" id="portafolio">
       <h2>Nuestro Trabajo</h2>
       <div class="portfolio-grid">
-        <div class="portfolio-item" data-type="image" data-src="media/project1.jpg" data-src-low="media/project11.jpg">
+        <div class="portfolio-item" data-type="image" data-src="media/project11.jpg" data-src-low="media/project1.jpg">
           <img class="media-content" src="" alt="Project 1">
           <div class="media-error">Error al cargar el contenido</div>
-          <button class="expand-button">Ver en tamaño completo</button>
         </div>
         <div class="portfolio-item" data-type="video" data-src="media/project2.mp4" data-src-low="media/project2.mp4">
           <video class="media-content" src="" muted preload="auto"></video>
           <div class="media-error">Error al cargar el contenido</div>
-          <button class="expand-button">Ver en tamaño completo</button>
         </div>
-        <div class="portfolio-item" data-type="image" data-src="media/project3.jpg" data-src-low="media/project33.jpg">
+        <div class="portfolio-item" data-type="image" data-src="media/project33.jpg" data-src-low="media/project3.jpg">
           <img class="media-content" src="" alt="Project 3">
           <div class="media-error">Error al cargar el contenido</div>
-          <button class="expand-button">Ver en tamaño completo</button>
         </div>
         <div class="portfolio-item" data-type="video" data-src="media/project4.gif" data-src-low="media/project4.gif">
           <img class="media-content" src="" alt="Project 4">
           <div class="media-error">Error al cargar el contenido</div>
-          <button class="expand-button">Ver en tamaño completo</button>
         </div>
       </div>
     </section>
@@ -854,7 +813,6 @@
         mainContent.classList.add('visible');
       }
 
-      // Eventos para el video de escritorio
       loadingAnimation.addEventListener('canplay', function() {
         console.log('Video de escritorio listo para reproducirse');
       });
@@ -867,7 +825,6 @@
         setTimeout(hideLoadingScreen, 2000);
       });
 
-      // Eventos para el video móvil
       loadingAnimationMobile.addEventListener('canplay', function() {
         console.log('Video móvil listo para reproducirse');
       });
@@ -888,56 +845,26 @@
         const srcLow = item.getAttribute('data-src-low');
         const srcHigh = item.getAttribute('data-src');
         const type = item.getAttribute('data-type');
-        const expandButton = item.querySelector('.expand-button');
 
-        // Cargar la versión de baja resolución al inicio
+        // Cargar la imagen adaptable (data-src-low) al inicio
         if (media.src !== srcLow) {
           media.src = srcLow;
           handleMediaEvents(media, item, srcLow, type);
         }
 
-        item.addEventListener('click', function(e) {
-          if (e.target === expandButton) return;
-
-          if (this.classList.contains('expanded')) {
-            this.classList.remove('expanded');
-            this.classList.remove('media-failed');
-            if (media.tagName === 'VIDEO') {
-              media.pause();
-            }
-            media.src = srcLow; // Volver a la versión de baja resolución
-            return;
-          }
-
-          document.querySelectorAll('.portfolio-item.expanded').forEach(expandedItem => {
-            expandedItem.classList.remove('expanded');
-            expandedItem.classList.remove('media-failed');
-            const expandedMedia = expandedItem.querySelector('.media-content');
-            if (expandedMedia.tagName === 'VIDEO') {
-              expandedMedia.pause();
-            }
-            expandedMedia.src = expandedItem.getAttribute('data-src-low');
-          });
-
-          this.classList.add('expanded');
-          if (media.src !== srcHigh) {
-            media.src = srcHigh; // Usar la versión de alta resolución al expandir
-            handleMediaEvents(media, item, srcHigh, type);
-          }
-
-          if (type === 'video' && media.tagName === 'VIDEO') {
-            media.play().catch(error => {
-              console.error('Error al reproducir el video:', error);
-            });
-          }
-        });
-
-        expandButton.addEventListener('click', function() {
+        item.addEventListener('click', function() {
           fullscreenView.classList.add('active');
           const mediaElement = type === 'image' || type === 'video' && srcHigh.endsWith('.gif')
             ? `<img src="${srcHigh}" alt="Fullscreen Media">`
             : `<video src="${srcHigh}" muted autoplay loop preload="auto"></video>`;
           fullscreenContent.innerHTML = mediaElement;
+
+          if (type === 'video' && !srcHigh.endsWith('.gif')) {
+            const video = fullscreenContent.querySelector('video');
+            video.play().catch(error => {
+              console.error('Error al reproducir el video:', error);
+            });
+          }
         });
       });
 
