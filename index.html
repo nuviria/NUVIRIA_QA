@@ -190,7 +190,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 80vh;
+      min-height: 95vh;
       text-align: center;
       position: relative;
       padding: 0 20px;
@@ -240,6 +240,27 @@
     body.dark-mode .cta-button:hover {
       background-color: #FFFFFF;
       color: #000000;
+    }
+
+    .about {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 95vh;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 50px;
+      margin-bottom: 40px;
+    }
+
+    .about p {
+      font-size: 24px;
+      max-width: 800px;
+      line-height: 1.5;
     }
 
     .services {
@@ -614,7 +635,12 @@
       }
 
       .hero {
-        min-height: 80vh;
+        min-height: 95vh;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      .about {
         padding-top: 20px;
         padding-bottom: 20px;
       }
@@ -630,6 +656,10 @@
 
       .hero p {
         font-size: 24px;
+      }
+
+      .about p {
+        font-size: 18px;
       }
 
       .cta-button {
@@ -664,6 +694,10 @@
         padding-top: 10px;
       }
 
+      .about {
+        padding-top: 10px;
+      }
+
       .services, .portfolio, .contact {
         padding-top: 10px;
       }
@@ -693,6 +727,7 @@
       <nav>
         <div class="nav-links">
           <a href="#inicio">Inicio</a>
+          <a href="#nosotros">Nosotros</a>
           <a href="#servicios">Servicios</a>
           <a href="#portafolio">Portafolio</a>
           <a href="#contacto">Contacto</a>
@@ -704,6 +739,13 @@
       <h1>Hacemos tus ideas realidad</h1>
       <p>Videos, animaciones y mucho más, todo en un solo lugar</p>
       <a href="#contacto" class="cta-button">Contanos tu idea</a>
+    </section>
+
+    <section class="about" id="nosotros">
+      <h2>Nosotros</h2>
+      <p>
+        En Nuviria Studio, somos un equipo apasionado por transformar ideas en experiencias visuales impactantes. Nos especializamos en la creación de contenido multimedia, desde videos promocionales hasta animaciones personalizadas, con un enfoque en la calidad y la creatividad. Trabajamos de cerca con nuestros clientes para entender sus necesidades y ofrecer soluciones que conecten con su audiencia, siempre buscando superar expectativas y dejar una huella única.
+      </p>
     </section>
 
     <section class="services" id="servicios">
@@ -735,7 +777,7 @@
     <section class="portfolio" id="portafolio">
       <h2>Nuestro Trabajo</h2>
       <div class="portfolio-grid">
-        <div class="portfolio-item" data-type="image" data-src="media/project11.jpg" data-src-low="media/project1.jpg">
+        <div class="portfolio-item" data-type="image" data-src="media/project1.jpg" data-src-low="media/project11.jpg">
           <img class="media-content" src="" alt="Project 1">
           <div class="media-error">Error al cargar el contenido</div>
         </div>
@@ -743,7 +785,7 @@
           <video class="media-content" src="" muted preload="auto"></video>
           <div class="media-error">Error al cargar el contenido</div>
         </div>
-        <div class="portfolio-item" data-type="image" data-src="media/project33.jpg" data-src-low="media/project3.jpg">
+        <div class="portfolio-item" data-type="image" data-src="media/project3.jpg" data-src-low="media/project33.jpg">
           <img class="media-content" src="" alt="Project 3">
           <div class="media-error">Error al cargar el contenido</div>
         </div>
@@ -892,7 +934,8 @@
         }
       }
 
-      document.querySelectorAll('.nav-links a').forEach(anchor => {
+      // Manejar el desplazamiento suave para todos los enlaces con hash
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
           const targetId = this.getAttribute('href').substring(1);
