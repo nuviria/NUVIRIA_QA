@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- SEO: Maintained meta description and keywords -->
+  <meta name="description" content="Nuviria Studio: Transformamos tus ideas en videos, animaciones y experiencias visuales impactantes.">
+  <meta name="keywords" content="Nuviria Studio, videos promocionales, animaciones, edición multimedia, streaming">
+  <meta name="author" content="Nuviria Studio">
   <title>Nuviria Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Preload loading video for performance -->
+  <link rel="preload" href="media/logo-animation.mp4" as="video" type="video/mp4">
   <style>
     * {
       margin: 0;
@@ -16,14 +22,22 @@
 
     body {
       background-color: #FFFFFF;
-      color: #000000;
+      color: #333333;
       transition: background-color 0.3s, color 0.3s;
-      padding-top: 160px;
+      padding-top: 80px; /* Adjusted for header height */
     }
 
     body.dark-mode {
       background-color: #1C2526;
       color: #FFFFFF;
+    }
+
+    /* New class to center content while allowing full-width backgrounds */
+    .content-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     .loading-screen {
@@ -88,27 +102,32 @@
 
     .mode-toggle {
       position: fixed;
-      top: 14px;
+      top: 50%; /* Center vertically */
       right: 20px;
+      transform: translateY(-50%); /* Align to middle of header */
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 30px;
-      z-index: 1000;
-      transition: color 0.3s;
-      color: #808080;
+      font-size: 24px;
+      z-index: 1001; /* Above header */
+      transition: color 0.3s, transform 0.3s;
+      color: #000000; /* Black for high contrast in light mode */
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* Subtle shadow for clarity */
     }
 
     .mode-toggle:hover {
-      color: #000000;
+      color: #FBBF24;
+      transform: translateY(-50%) scale(1.1); /* Maintain vertical centering on hover */
     }
 
     body.dark-mode .mode-toggle {
-      color: #FFFFFF;
+      color: #FFFFFF; /* White in dark mode */
+      text-shadow: none; /* No shadow needed in dark mode */
     }
 
     body.dark-mode .mode-toggle:hover {
-      color: #FFC107;
+      color: #FBBF24;
+      transform: translateY(-50%) scale(1.1); /* Maintain vertical centering */
     }
 
     header {
@@ -116,7 +135,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      padding: 20px 50px;
+      padding: 15px 50px;
       background-color: #FFC107;
       border-bottom: 1px solid #C0C0C0;
       transition: background-color 0.3s, border-color 0.3s;
@@ -130,7 +149,7 @@
     }
 
     header img {
-      height: 50px;
+      height: 40px;
       position: absolute;
       left: 50px;
       top: 50%;
@@ -144,14 +163,14 @@
 
     .nav-links {
       display: flex;
-      gap: 15px;
+      gap: 20px;
     }
 
     .nav-links a {
       text-decoration: none;
       color: #000000;
       font-weight: 400;
-      font-size: 20px;
+      font-size: 18px;
       transition: color 0.3s;
     }
 
@@ -160,11 +179,11 @@
     }
 
     .nav-links a:hover {
-      color: #000000;
+      color: #2E7D32; /* Dark green hover for light mode */
     }
 
     body.dark-mode .nav-links a:hover {
-      color: #FFC107;
+      color: #FBBF24; /* Gold hover for dark mode */
     }
 
     .nav-links a:active {
@@ -172,17 +191,7 @@
     }
 
     body.dark-mode .nav-links a:active {
-      color: #FFC107;
-    }
-
-    .nav-links a::selection {
-      background-color: #000000;
-      color: #FFFFFF;
-    }
-
-    body.dark-mode .nav-links a::selection {
-      background-color: #FFFFFF;
-      color: #000000;
+      color: #FBBF24;
     }
 
     .hero {
@@ -190,56 +199,75 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh;
+      min-height: calc(100vh - 60px); /* Full viewport height minus header */
       text-align: center;
       position: relative;
-      padding: 0 20px;
+      padding: 50px 20px;
+      background-color: #FFFFFF;
+      /* Removed max-width and margin to allow full-width background */
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px;
-      height: 300px;
-      background-color: #FFC107;
-      opacity: 0.2;
-      border-radius: 50%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255, 193, 7, 0.1), transparent);
       z-index: -1;
     }
 
+    body.dark-mode .hero {
+      background-color: #2E3A3B; /* Solid dark green for hero in dark mode */
+    }
+
+    body.dark-mode .hero::before {
+      /* No gradient in dark mode */
+      content: none;
+    }
+
     .hero h1 {
-      font-size: 60px;
+      font-size: 48px;
       font-weight: 700;
-      margin-bottom: 20px;
-      margin-top: -50px; /* Sube el contenido 50px */
+      margin-bottom: 15px;
     }
 
     .hero p {
-      font-size: 38px;
-      margin-bottom: 30px;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .hero .tagline {
+      font-size: 18px;
+      font-weight: 300;
+      margin-bottom: 20px;
+      color: #333333;
+    }
+
+    body.dark-mode .hero .tagline {
+      color: #FBBF24;
     }
 
     .cta-button {
       background-color: #FFC107;
       color: #000000;
-      padding: 15px 30px;
+      padding: 12px 25px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 24px;
+      font-weight: 600;
+      font-size: 20px;
       border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s, transform 0.3s;
     }
 
     .cta-button:hover {
       background-color: #000000;
       color: #FFFFFF;
+      transform: scale(1.05);
     }
 
     body.dark-mode .cta-button:hover {
-      background-color: #FFFFFF;
+      background-color: #FBBF24;
       color: #000000;
     }
 
@@ -248,21 +276,58 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh;
+      min-height: calc(100vh - 60px); /* Full viewport height minus header */
       padding: 50px 20px;
       text-align: center;
+      background-color: #FFFFFF;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+      /* Removed max-width and margin to allow full-width background */
+    }
+
+    .about::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255, 193, 7, 0.1), transparent);
+      z-index: -1;
+    }
+
+    body.dark-mode .about {
+      background-color: #37474F; /* Slightly lighter greenish-gray for about in dark mode */
+    }
+
+    body.dark-mode .about::before {
+      /* No gradient in dark mode */
+      content: none;
+    }
+
+    .about.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .about h2 {
-      font-size: 50px;
-      margin-bottom: 40px;
-      margin-top: -50px; /* Sube el contenido 50px */
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    .about h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 15px;
     }
 
     .about p {
-      font-size: 24px;
+      font-size: 18px;
       max-width: 800px;
-      line-height: 1.5;
+      line-height: 1.6;
+      margin-bottom: 15px;
     }
 
     .services {
@@ -270,76 +335,132 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh;
+      min-height: calc(100vh - 60px); /* Full viewport height minus header */
       background-color: #E0E0E0;
       padding: 50px 20px;
       text-align: center;
+      position: relative;
       transition: background-color 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+      /* Removed max-width and margin to allow full-width background */
+    }
+
+    .services::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255, 193, 7, 0.1), transparent);
+      z-index: -1;
     }
 
     body.dark-mode .services {
-      background-color: #2E3A3B;
+      background-color: #263238; /* Bluish-green for services in dark mode */
+    }
+
+    body.dark-mode .services::before {
+      /* No gradient in dark mode */
+      content: none;
+    }
+
+    .services.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .services h2 {
-      font-size: 50px;
-      margin-bottom: 40px;
+      font-size: 40px;
+      margin-bottom: 20px;
     }
 
     .service-cards {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 25px;
       flex-wrap: wrap;
     }
 
     .card {
       background-color: #FFFFFF;
-      padding: 20px;
-      width: 280px;
+      padding: 25px;
+      width: 300px;
       border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s, transform 0.3s;
       text-align: center;
-      word-wrap: break-word;
     }
 
     body.dark-mode .card {
       background-color: #1C2526;
     }
 
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
     .card h3 {
-      font-size: 28px;
+      font-size: 24px;
       margin-bottom: 10px;
     }
 
     .card p {
-      font-size: 20px;
+      font-size: 16px;
     }
 
-    .portfolio, .contact {
+    .portfolio {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh;
+      min-height: calc(100vh - 60px); /* Full viewport height minus header */
       padding: 50px 20px;
       text-align: center;
+      background-color: #FFFFFF;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+      /* Removed max-width and margin to allow full-width background */
     }
 
-    .portfolio h2, .contact h2 {
-      font-size: 50px;
-      margin-bottom: 40px;
+    .portfolio::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255, 193, 7, 0.1), transparent);
+      z-index: -1;
     }
 
-    .contact h2 {
-      margin-top: -50px; /* Sube el contenido 50px */
+    body.dark-mode .portfolio {
+      background-color: #2E3A3B; /* Same dark green as hero for portfolio in dark mode */
+    }
+
+    body.dark-mode .portfolio::before {
+      /* No gradient in dark mode */
+      content: none;
+    }
+
+    .portfolio.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .portfolio h2 {
+      font-size: 40px;
+      margin-bottom: 20px;
     }
 
     .portfolio-grid {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 25px;
       flex-wrap: wrap;
     }
 
@@ -377,6 +498,36 @@
       background-color: #000000;
       opacity: 1;
       transition: opacity 0.3s;
+    }
+
+    .portfolio-item .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      color: #FFFFFF;
+    }
+
+    .portfolio-item:hover .overlay {
+      opacity: 1;
+    }
+
+    .portfolio-item .overlay h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .portfolio-item .overlay p {
+      font-size: 14px;
+      max-width: 80%;
     }
 
     .portfolio-item .media-error {
@@ -439,6 +590,30 @@
       background-color: #000000;
     }
 
+    .fullscreen-controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .fullscreen-controls button {
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      color: #FFFFFF;
+      font-size: 20px;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .fullscreen-controls button:hover {
+      color: #FBBF24;
+    }
+
     .fullscreen-close {
       position: absolute;
       top: 10px;
@@ -452,16 +627,53 @@
     }
 
     .fullscreen-close:hover {
-      color: #FFC107;
+      color: #FBBF24;
     }
 
     .contact {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 60px); /* Full viewport height minus header */
+      padding: 50px 20px;
+      text-align: center;
       background-color: #E0E0E0;
-      transition: background-color 0.3s;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+      /* Removed max-width and margin to allow full-width background */
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255, 193, 7, 0.1), transparent);
+      z-index: -1;
     }
 
     body.dark-mode .contact {
-      background-color: #2E3A3B;
+      background-color: #263238; /* Same as services for contact in dark mode */
+    }
+
+    body.dark-mode .contact::before {
+      /* No gradient in dark mode */
+      content: none;
+    }
+
+    .contact.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact h2 {
+      font-size: 40px;
+      margin-bottom: 20px;
     }
 
     .contact form {
@@ -477,8 +689,13 @@
       border-radius: 5px;
       background-color: #FFFFFF;
       color: #000000;
-      font-size: 20px;
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      font-size: 18px;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      border-color: #FFC107;
+      outline: none;
     }
 
     body.dark-mode .contact input,
@@ -488,25 +705,31 @@
       border-color: #FFFFFF;
     }
 
+    body.dark-mode .contact input:focus,
+    body.dark-mode .contact textarea:focus {
+      border-color: #FBBF24;
+    }
+
     .contact button {
-      background-color: #f7d140;
+      background-color: #FFC107;
       color: #000000;
-      padding: 15px 30px;
+      padding: 12px 25px;
       border: none;
       border-radius: 5px;
-      font-weight: 700;
-      font-size: 24px;
+      font-weight: 600;
+      font-size: 20px;
       cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s, transform 0.3s;
     }
 
     .contact button:hover {
       background-color: #000000;
       color: #FFFFFF;
+      transform: scale(1.05);
     }
 
     body.dark-mode .contact button:hover {
-      background-color: #FFFFFF;
+      background-color: #FBBF24;
       color: #000000;
     }
 
@@ -523,31 +746,24 @@
       align-items: center;
       background-color: #F5F5F5;
       color: #000000;
-      padding: 12px 24px;
+      padding: 10px 20px;
       border: 2px solid #000000;
       border-radius: 8px;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
     .social-button i {
-      margin-right: 12px;
-      font-size: 20px;
+      margin-right: 10px;
+      font-size: 18px;
     }
 
     .social-button:hover {
-      background-color: #FF6F61;
+      background-color: #FFC107;
       color: #000000;
       transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .social-button:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     body.dark-mode .social-button {
@@ -557,15 +773,8 @@
     }
 
     body.dark-mode .social-button:hover {
-      background-color: #FF6F61;
+      background-color: #FBBF24;
       color: #000000;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    body.dark-mode .social-button:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     footer {
@@ -573,16 +782,17 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 95vh;
+      min-height: calc(100vh - 60px); /* Full viewport height minus header */
       background-color: #000000;
       color: #FFFFFF;
       text-align: center;
-      padding: 50px 20px;
+      padding: 30px 20px;
       transition: background-color 0.3s;
+      /* Removed max-width and margin to allow full-width background */
     }
 
     footer img {
-      height: 200px;
+      height: 150px;
       margin-bottom: 20px;
     }
 
@@ -590,29 +800,35 @@
       color: #FFFFFF;
       margin: 0 10px;
       text-decoration: none;
-      font-size: 20px;
+      font-size: 18px;
     }
 
     footer p {
-      font-size: 18px;
+      font-size: 16px;
       margin-top: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 18px;
+      font-weight: 300;
+      margin-bottom: 15px;
+      color: #333333;
+    }
+
+    body.dark-mode .footer-tagline {
+      color: #FBBF24;
     }
 
     @media (max-width: 850px) {
       body {
-        padding-top: 120px;
+        padding-top: 60px; /* Adjusted for compact header */
       }
 
       header {
         padding: 10px 20px;
-        text-align: left;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
       }
 
       header img {
@@ -622,54 +838,65 @@
       }
 
       nav {
-        margin-top: 0;
-        padding-right: 40px;
         flex: 1;
         display: flex;
         justify-content: center;
+        align-items: center;
+        padding-right: 0; /* No padding-right for better centering */
       }
 
       .nav-links {
-        display: flex;
-        gap: 10px;
+        gap: 8px; /* Reduced gap for cleaner layout */
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: center; /* Center links horizontally */
+        align-items: center; /* Center links vertically */
       }
 
       .nav-links a {
         font-size: 14px;
       }
 
-      .hero {
-        min-height: 95vh;
-        padding-top: 20px;
-        padding-bottom: 20px;
+      .mode-toggle {
+        top: 50%; /* Maintain vertical centering */
+        right: 20px;
+        transform: translateY(-50%); /* Align to middle of header */
       }
 
-      .about {
-        padding-top: 20px;
-        padding-bottom: 20px;
+      .mode-toggle:hover {
+        transform: translateY(-50%) scale(1.1); /* Maintain centering on hover */
       }
 
-      .services, .portfolio, .contact {
-        padding-top: 20px;
-        padding-bottom: 20px;
+      body.dark-mode .mode-toggle:hover {
+        transform: translateY(-50%) scale(1.1); /* Maintain centering */
+      }
+
+      .hero, .about, .services, .portfolio, .contact {
+        min-height: calc(100vh - 50px); /* Adjusted for compact header */
+        padding: 30px 20px;
       }
 
       .hero h1 {
-        font-size: 36px;
+        font-size: 32px;
       }
 
       .hero p {
-        font-size: 24px;
+        font-size: 18px;
+      }
+
+      .hero .tagline {
+        font-size: 16px;
+      }
+
+      .about h2, .services h2, .portfolio h2, .contact h2 {
+        font-size: 32px;
       }
 
       .about p {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       .cta-button {
-        font-size: 18px;
+        font-size: 16px;
         padding: 10px 20px;
       }
 
@@ -677,35 +904,84 @@
         width: 90%;
       }
 
-      .mode-toggle {
-        top: 10px;
-        right: 20px;
+      footer {
+        min-height: calc(100vh - 50px); /* Adjusted for compact header */
       }
     }
 
-    @media (max-width: 400px) {
-      .nav-links {
-        gap: 8px;
+    @media (max-width: 456px) {
+      body {
+        padding-top: 60px; /* Same as 850px for consistency */
       }
 
-      .nav-links a {
-        font-size: 12px;
+      header {
+        padding: 10px 20px; /* Compact padding for progressive wrapping */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      header img {
+        height: 30px;
+        position: static;
+        transform: none;
       }
 
       nav {
-        padding-right: 40px;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 50px; /* Safety margin to protect mode-toggle */
       }
 
-      .hero {
-        padding-top: 10px;
+      .nav-links {
+        flex-wrap: wrap; /* Progressive wrapping for links */
+        max-width: 60%; /* Restrict width to force wrapping */
+        gap: 8px; /* Consistent spacing */
+        justify-content: center;
+        align-items: center;
+        padding: 5px 0; /* Subtle vertical padding */
       }
 
-      .about {
-        padding-top: 10px;
+      .nav-links a {
+        font-size: 14px; /* Restored font size for legibility */
       }
 
-      .services, .portfolio, .contact {
-        padding-top: 10px;
+      .mode-toggle {
+        top: 50%; /* Maintain vertical centering */
+        right: 20px;
+        transform: translateY(-50%); /* Align to middle of header */
+      }
+
+      .mode-toggle:hover {
+        transform: translateY(-50%) scale(1.1); /* Maintain centering on hover */
+      }
+
+      body.dark-mode .mode-toggle:hover {
+        transform: translateY(-50%) scale(1.1); /* Maintain centering */
+      }
+
+      .hero, .about, .services, .portfolio, .contact {
+        min-height: calc(100vh - 50px); /* Same as 850px */
+        padding: 20px 15px; /* Tighter padding for small screens */
+      }
+
+      footer {
+        min-height: calc(100vh - 50px); /* Same as 850px */
+        padding: 20px 15px; /* Tighter padding for small screens */
+      }
+    }
+
+    /* Animation for section visibility */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   </style>
@@ -724,125 +1000,164 @@
   </div>
 
   <div class="main-content">
-    <button class="mode-toggle" onclick="toggleMode()">
+    <button class="mode-toggle" aria-label="Toggle dark mode" onclick="toggleMode()">
       <i class="fas fa-sun"></i>
     </button>
 
     <header>
       <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo">
-      <nav>
+      <nav aria-label="Main navigation">
         <div class="nav-links">
           <a href="#inicio">Inicio</a>
           <a href="#nosotros">Nosotros</a>
           <a href="#servicios">Servicios</a>
           <a href="#portafolio">Portafolio</a>
           <a href="#contacto">Contacto</a>
+          <a href="#estudio">Estudio</a>
         </div>
       </nav>
     </header>
 
     <section class="hero" id="inicio">
-      <h1>Hacemos tus ideas realidad</h1>
-      <p>Videos, animaciones y mucho más, todo en un solo lugar</p>
-      <a href="#contacto" class="cta-button">Contanos tu idea</a>
+      <div class="content-wrapper">
+        <h1>Hacemos tus ideas realidad</h1>
+        <p>Videos, animaciones y mucho más, todo en un solo lugar</p>
+        <p class="tagline">Ideas que encienden</p>
+        <a href="#contacto" class="cta-button">Contanos tu idea</a>
+      </div>
     </section>
 
     <section class="about" id="nosotros">
-      <h2>Nosotros</h2>
-      <p>
-        En Nuviria Studio, somos un equipo apasionado por transformar ideas en experiencias visuales impactantes. Nos especializamos en la creación de contenido multimedia, desde videos promocionales hasta animaciones personalizadas, con un enfoque en la calidad y la creatividad. Trabajamos de cerca con nuestros clientes para entender sus necesidades y ofrecer soluciones que conecten con su audiencia, siempre buscando superar expectativas y dejar una huella única.
-      </p>
+      <div class="content-wrapper">
+        <h2>Nosotros</h2>
+        <h3>Tu visión, nuestro arte</h3>
+        <p>
+          En Nuviria Studio, somos un equipo apasionado por transformar ideas en experiencias visuales impactantes. Nos especializamos en la creación de contenido multimedia, desde videos promocionales hasta animaciones personalizadas.
+        </p>
+        <p>
+          Trabajamos de cerca con nuestros clientes para entender sus necesidades y ofrecer soluciones que conecten con su audiencia, siempre buscando superar expectativas y dejar una huella única.
+        </p>
+      </div>
     </section>
 
     <section class="services" id="servicios">
-      <h2>Nuestros Servicios</h2>
-      <div class="service-cards">
-        <div class="card">
-          <h3>Video Promocional</h3>
-          <p>Capturamos la esencia de tu marca en 30 segundos.</p>
-        </div>
-        <div class="card">
-          <h3>Edición de Video</h3>
-          <p>Transformamos tus clips en contenido profesional.</p>
-        </div>
-        <div class="card">
-          <h3>Animaciones</h3>
-          <p>Dale vida a tus ideas con motion graphics.</p>
-        </div>
-        <div class="card">
-          <h3>Edición de Audio</h3>
-          <p>Mejoramos tu audio, voz o música para que suene profesional en cualquier plataforma.</p>
-        </div>
-        <div class="card">
-          <h3>Asesoría y Streaming</h3>
-          <p>Te guiamos y acompañamos en la optimización de tus streamings.</p>
+      <div class="content-wrapper">
+        <h2>Nuestros Servicios</h2>
+        <div class="service-cards">
+          <div class="card">
+            <h3>Video Promocional</h3>
+            <p>Capturamos la esencia de tu marca en 30 segundos.</p>
+          </div>
+          <div class="card">
+            <h3>Edición de Video</h3>
+            <p>Transformamos tus clips en contenido profesional.</p>
+          </div>
+          <div class="card">
+            <h3>Animaciones</h3>
+            <p>Dale vida a tus ideas con motion graphics.</p>
+          </div>
+          <div class="card">
+            <h3>Edición de Audio</h3>
+            <p>Mejoramos tu audio, voz o música para que suene profesional.</p>
+          </div>
+          <div class="card">
+            <h3>Asesoría y Streaming</h3>
+            <p>Te guiamos en la optimización de tus streamings.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="portfolio" id="portafolio">
-      <h2>Nuestro Trabajo</h2>
-      <div class="portfolio-grid">
-        <div class="portfolio-item" data-type="image" data-src="media/project11.jpg" data-src-low="media/project1.jpg">
-          <img class="media-content" src="" alt="Project 1">
-          <div class="media-error">Error al cargar el contenido</div>
-        </div>
-        <div class="portfolio-item" data-type="video" data-src="media/project2.mp4" data-src-low="media/project2.mp4">
-          <video class="media-content" src="" muted preload="auto"></video>
-          <div class="media-error">Error al cargar el contenido</div>
-        </div>
-        <div class="portfolio-item" data-type="image" data-src="media/project33.jpg" data-src-low="media/project3.jpg">
-          <img class="media-content" src="" alt="Project 3">
-          <div class="media-error">Error al cargar el contenido</div>
-        </div>
-        <div class="portfolio-item" data-type="video" data-src="media/project4.gif" data-src-low="media/project4.gif">
-          <img class="media-content" src="" alt="Project 4">
-          <div class="media-error">Error al cargar el contenido</div>
+      <div class="content-wrapper">
+        <h2>Nuestro Trabajo</h2>
+        <div class="portfolio-grid">
+          <div class="portfolio-item" data-type="image" data-src="media/project11.jpg" data-src-low="media/project1.jpg">
+            <img class="media-content" src="" alt="Promotional Video">
+            <div class="overlay">
+              <h3>Video Promocional</h3>
+              <p>Campaña vibrante para una marca local.</p>
+            </div>
+            <div class="media-error">Error al cargar el contenido</div>
+          </div>
+          <div class="portfolio-item" data-type="video" data-src="media/project2.mp4" data-src-low="media/project2.mp4">
+            <video class="media-content" src="" muted preload="auto"></video>
+            <div class="overlay">
+              <h3>Animación 2D</h3>
+              <p>Motion graphics para una startup.</p>
+            </div>
+            <div class="media-error">Error al cargar el contenido</div>
+          </div>
+          <div class="portfolio-item" data-type="image" data-src="media/project33.jpg" data-src-low="media/project3.jpg">
+            <img class="media-content" src="" alt="Social Media Ad">
+            <div class="overlay">
+              <h3>Anuncio Social</h3>
+              <p>Video corto para Instagram.</p>
+            </div>
+            <div class="media-error">Error al cargar el contenido</div>
+          </div>
+          <div class="portfolio-item" data-type="video" data-src="media/project4.gif" data-src-low="media/project4.gif">
+            <img class="media-content" src="" alt="Logo Animation">
+            <div class="overlay">
+              <h3>Animación de Logo</h3>
+              <p>Intro dinámica para una marca.</p>
+            </div>
+            <div class="media-error">Error al cargar el contenido</div>
+          </div>
         </div>
       </div>
     </section>
 
     <div class="fullscreen-view" id="fullscreen-view">
       <div class="fullscreen-content" id="fullscreen-content"></div>
-      <button class="fullscreen-close" id="fullscreen-close">
+      <div class="fullscreen-controls">
+        <button id="fullscreen-play-pause" aria-label="Play or pause video"><i class="fas fa-play"></i></button>
+        <button id="fullscreen-mute" aria-label="Mute or unmute video"><i class="fas fa-volume-up"></i></button>
+      </div>
+      <button class="fullscreen-close" id="fullscreen-close" aria-label="Close fullscreen">
         <i class="fas fa-times"></i>
       </button>
     </div>
 
     <section class="contact" id="contacto">
-      <h2>Contáctanos</h2>
-      <form>
-        <input type="text" placeholder="Nombre" required>
-        <input type="email" placeholder="Email" required>
-        <textarea placeholder="Tu mensaje" rows="5" required></textarea>
-        <button type="submit">Enviar</button>
-      </form>
-      <div class="social-buttons">
-        <a href="https://www.instagram.com/nuviria/" target="_blank" class="social-button">
-          <i class="fab fa-instagram"></i> Instagram
-        </a>
-        <a href="https://wa.me/+5491124060228" target="_blank" class="social-button">
-          <i class="fab fa-whatsapp"></i> WhatsApp
-        </a>
-        <a href="https://www.facebook.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
-          <i class="fab fa-facebook-f"></i> Facebook
-        </a>
-        <a href="mailto:nuviriastudio@gmail.com" class="social-button">
-          <i class="fas fa-envelope"></i> Email
-        </a>
+      <div class="content-wrapper">
+        <h2>Contactanos</h2>
+        <form>
+          <input type="text" placeholder="Nombre" required aria-label="Nombre">
+          <input type="email" placeholder="Email" required aria-label="Email">
+          <textarea placeholder="Tu mensaje" rows="5" required aria-label="Mensaje"></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+        <div class="social-buttons">
+          <a href="https://www.instagram.com/nuviria/" target="_blank" class="social-button">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://wa.me/+5491124060228" target="_blank" class="social-button">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="https://www.facebook.com/YOUR_USERNAME_HERE/" target="_blank" class="social-button">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </a>
+          <a href="mailto:nuviriastudio@gmail.com" class="social-button">
+            <i class="fas fa-envelope"></i> Email
+          </a>
+        </div>
       </div>
     </section>
 
-    <footer id="footer">
-      <a href="#inicio">
-        <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
-      </a>
-      <p>
-        <a href="https://www.instagram.com/nuviria/" target="_blank">Instagram</a> |
-        <a href="#" target="_blank">LinkedIn</a> |
-        <a href="mailto:nuviriastudio@gmail.com">Email</a>
-      </p>
-      <p>© 2025 Nuviria Studio. Todos los derechos reservados.</p>
+    <footer id="estudio">
+      <div class="content-wrapper">
+        <a href="#inicio">
+          <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
+        </a>
+        <p class="footer-tagline">Ideas que encienden</p>
+        <p>
+          <a href="https://www.instagram.com/nuviria/" target="_blank">Instagram</a> |
+          <a href="#" target="_blank">LinkedIn</a> |
+          <a href="mailto:nuviriastudio@gmail.com">Email</a>
+        </p>
+        <p>© 2025 Nuviria Studio. Todos los derechos reservados.</p>
+      </div>
     </footer>
   </div>
 
@@ -855,6 +1170,8 @@
       const fullscreenView = document.getElementById('fullscreen-view');
       const fullscreenContent = document.getElementById('fullscreen-content');
       const fullscreenClose = document.getElementById('fullscreen-close');
+      const playPauseButton = document.getElementById('fullscreen-play-pause');
+      const muteButton = document.getElementById('fullscreen-mute');
 
       function hideLoadingScreen() {
         loadingScreen.classList.add('hidden');
@@ -862,7 +1179,7 @@
       }
 
       loadingAnimation.addEventListener('canplay', function() {
-        console.log('Video de escritorio listo para reproducirse');
+        console.log('Video de escritorio listo');
       });
 
       loadingAnimation.addEventListener('ended', hideLoadingScreen);
@@ -874,7 +1191,7 @@
       });
 
       loadingAnimationMobile.addEventListener('canplay', function() {
-        console.log('Video móvil listo para reproducirse');
+        console.log('Video móvil listo');
       });
 
       loadingAnimationMobile.addEventListener('ended', hideLoadingScreen);
@@ -887,26 +1204,24 @@
 
       setTimeout(hideLoadingScreen, 5000);
 
-      // Manejar la interactividad del portafolio
+      // Portfolio interactivity
       document.querySelectorAll('.portfolio-item').forEach(item => {
         const media = item.querySelector('.media-content');
         const srcLow = item.getAttribute('data-src-low');
         const srcHigh = item.getAttribute('data-src');
         const type = item.getAttribute('data-type');
 
-        // Forzar la carga de la imagen adaptable (data-src-low) al inicio
         if (media && srcLow) {
-          media.src = srcLow; // Aseguramos que siempre use data-src-low
+          media.src = srcLow;
           handleMediaEvents(media, item, srcLow, type);
         } else {
-          console.error('Error: Elemento media o srcLow no definido para', item);
+          console.error('Error: Elemento media o srcLow no definido', item);
           item.classList.add('media-failed');
         }
 
         item.addEventListener('click', function() {
           if (srcHigh) {
             fullscreenView.classList.add('active');
-            // Aseguramos que la vista fullscreen use data-src (alta calidad)
             const mediaElement = type === 'image' || (type === 'video' && srcHigh.endsWith('.gif'))
               ? `<img src="${srcHigh}" alt="Fullscreen Media">`
               : `<video src="${srcHigh}" muted autoplay loop preload="auto"></video>`;
@@ -918,24 +1233,51 @@
                 video.play().catch(error => {
                   console.error('Error al reproducir el video:', error);
                 });
+                setupVideoControls(video);
               }
+            } else {
+              playPauseButton.style.display = 'none';
+              muteButton.style.display = 'none';
             }
-          } else {
-            console.error('Error: srcHigh no definido para', item);
           }
         });
       });
+
+      function setupVideoControls(video) {
+        playPauseButton.style.display = 'block';
+        muteButton.style.display = 'block';
+
+        playPauseButton.addEventListener('click', function() {
+          if (video.paused) {
+            video.play();
+            playPauseButton.querySelector('i').classList.remove('fa-play');
+            playPauseButton.querySelector('i').classList.add('fa-pause');
+          } else {
+            video.pause();
+            playPauseButton.querySelector('i').classList.remove('fa-pause');
+            playPauseButton.querySelector('i').classList.add('fa-play');
+          }
+        });
+
+        muteButton.addEventListener('click', function() {
+          video.muted = !video.muted;
+          muteButton.querySelector('i').classList.toggle('fa-volume-up');
+          muteButton.querySelector('i').classList.toggle('fa-volume-mute');
+        });
+      }
 
       fullscreenView.addEventListener('click', function(e) {
         if (e.target === fullscreenView || e.target === fullscreenClose) {
           fullscreenView.classList.remove('active');
           fullscreenContent.innerHTML = '';
+          playPauseButton.style.display = 'none';
+          muteButton.style.display = 'none';
         }
       });
 
       function handleMediaEvents(media, item, src, type) {
         media.addEventListener('load', function() {
-          console.log('Medio cargado correctamente:', src);
+          console.log('Medio cargado:', src);
         }, { once: true });
 
         media.addEventListener('error', function() {
@@ -945,12 +1287,12 @@
 
         if (media.tagName === 'VIDEO') {
           media.addEventListener('canplay', function() {
-            console.log('Video listo para reproducirse:', src);
+            console.log('Video listo:', src);
           }, { once: true });
         }
       }
 
-      // Manejar el desplazamiento suave para todos los enlaces con hash
+      // Smooth scrolling
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
@@ -965,6 +1307,18 @@
           });
         });
       });
+
+      // Section animations
+      const sections = document.querySelectorAll('.about, .services, .portfolio, .contact');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sections.forEach(section => observer.observe(section));
     });
 
     function toggleMode() {
