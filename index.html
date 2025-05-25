@@ -24,7 +24,7 @@
       background-color: #FFFFFF;
       color: #333333;
       transition: background-color 0.3s, color 0.3s;
-      padding-top: 80px; /* Adjusted for header height */
+      padding-top: 0; /* No padding needed with fixed header */
     }
 
     body.dark-mode {
@@ -32,7 +32,7 @@
       color: #FFFFFF;
     }
 
-    /* New class to center content while allowing full-width backgrounds */
+    /* Center content while allowing full-width backgrounds */
     .content-wrapper {
       max-width: 1200px;
       margin: 0 auto;
@@ -101,8 +101,8 @@
     }
 
     .mode-toggle {
-      position: fixed;
-      top: 50%; /* Center vertically */
+      position: absolute; /* Relative to header */
+      top: 50%; /* Center vertically in header */
       right: 20px;
       transform: translateY(-50%); /* Align to middle of header */
       background: none;
@@ -111,13 +111,13 @@
       font-size: 24px;
       z-index: 1001; /* Above header */
       transition: color 0.3s, transform 0.3s;
-      color: #000000; /* Black for high contrast in light mode */
+      color: #000000; /* Black in light mode */
       text-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* Subtle shadow for clarity */
     }
 
     .mode-toggle:hover {
-      color: #FBBF24;
-      transform: translateY(-50%) scale(1.1); /* Maintain vertical centering on hover */
+      color: #2E7D32; /* Dark green on hover in light mode */
+      transform: translateY(-50%) scale(1.1); /* Maintain vertical centering */
     }
 
     body.dark-mode .mode-toggle {
@@ -126,12 +126,12 @@
     }
 
     body.dark-mode .mode-toggle:hover {
-      color: #FBBF24;
+      color: #FBBF24; /* Gold on hover in dark mode */
       transform: translateY(-50%) scale(1.1); /* Maintain vertical centering */
     }
 
     header {
-      position: fixed;
+      position: fixed; /* Always fixed at top */
       top: 0;
       left: 0;
       width: 100%;
@@ -140,7 +140,7 @@
       border-bottom: 1px solid #C0C0C0;
       transition: background-color 0.3s, border-color 0.3s;
       text-align: center;
-      z-index: 999;
+      z-index: 1000; /* Above most elements */
     }
 
     body.dark-mode header {
@@ -204,7 +204,7 @@
       position: relative;
       padding: 50px 20px;
       background-color: #FFFFFF;
-      /* Removed max-width and margin to allow full-width background */
+      /* Full-width background */
     }
 
     .hero::before {
@@ -223,8 +223,7 @@
     }
 
     body.dark-mode .hero::before {
-      /* No gradient in dark mode */
-      content: none;
+      content: none; /* No gradient in dark mode */
     }
 
     .hero h1 {
@@ -284,7 +283,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s, transform 0.5s;
-      /* Removed max-width and margin to allow full-width background */
+      /* Full-width background */
     }
 
     .about::before {
@@ -303,8 +302,7 @@
     }
 
     body.dark-mode .about::before {
-      /* No gradient in dark mode */
-      content: none;
+      content: none; /* No gradient in dark mode */
     }
 
     .about.visible {
@@ -344,7 +342,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s, transform 0.5s;
-      /* Removed max-width and margin to allow full-width background */
+      /* Full-width background */
     }
 
     .services::before {
@@ -363,8 +361,7 @@
     }
 
     body.dark-mode .services::before {
-      /* No gradient in dark mode */
-      content: none;
+      content: none; /* No gradient in dark mode */
     }
 
     .services.visible {
@@ -424,7 +421,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s, transform 0.5s;
-      /* Removed max-width and margin to allow full-width background */
+      /* Full-width background */
     }
 
     .portfolio::before {
@@ -443,8 +440,7 @@
     }
 
     body.dark-mode .portfolio::before {
-      /* No gradient in dark mode */
-      content: none;
+      content: none; /* No gradient in dark mode */
     }
 
     .portfolio.visible {
@@ -556,7 +552,7 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
+      z-index: 1001; /* Above header */
       justify-content: center;
       align-items: center;
     }
@@ -643,7 +639,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s, transform 0.5s;
-      /* Removed max-width and margin to allow full-width background */
+      /* Full-width background */
     }
 
     .contact::before {
@@ -662,8 +658,7 @@
     }
 
     body.dark-mode .contact::before {
-      /* No gradient in dark mode */
-      content: none;
+      content: none; /* No gradient in dark mode */
     }
 
     .contact.visible {
@@ -788,7 +783,7 @@
       text-align: center;
       padding: 30px 20px;
       transition: background-color 0.3s;
-      /* Removed max-width and margin to allow full-width background */
+      /* Full-width background */
     }
 
     footer img {
@@ -821,7 +816,7 @@
 
     @media (max-width: 850px) {
       body {
-        padding-top: 60px; /* Adjusted for compact header */
+        padding-top: 0; /* No padding needed with fixed header */
       }
 
       header {
@@ -829,6 +824,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: fixed; /* Fixed at top */
+        top: 0;
       }
 
       header img {
@@ -857,7 +854,8 @@
       }
 
       .mode-toggle {
-        top: 50%; /* Maintain vertical centering */
+        position: absolute; /* Relative to header */
+        top: 50%; /* Maintain vertical centering in header */
         right: 20px;
         transform: translateY(-50%); /* Align to middle of header */
       }
@@ -870,7 +868,7 @@
         transform: translateY(-50%) scale(1.1); /* Maintain centering */
       }
 
-      .hero, .about, .services, .portfolio, .contact {
+      .hero, .about, .services, .portfolio, .contact, footer {
         min-height: calc(100vh - 50px); /* Adjusted for compact header */
         padding: 30px 20px;
       }
@@ -903,15 +901,11 @@
       .card {
         width: 90%;
       }
-
-      footer {
-        min-height: calc(100vh - 50px); /* Adjusted for compact header */
-      }
     }
 
     @media (max-width: 456px) {
       body {
-        padding-top: 60px; /* Same as 850px for consistency */
+        padding-top: 0; /* No padding needed with fixed header */
       }
 
       header {
@@ -919,6 +913,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: fixed; /* Fixed at top */
+        top: 0;
       }
 
       header img {
@@ -949,7 +945,8 @@
       }
 
       .mode-toggle {
-        top: 50%; /* Maintain vertical centering */
+        position: absolute; /* Relative to header */
+        top: 50%; /* Maintain vertical centering in header */
         right: 20px;
         transform: translateY(-50%); /* Align to middle of header */
       }
@@ -962,13 +959,8 @@
         transform: translateY(-50%) scale(1.1); /* Maintain centering */
       }
 
-      .hero, .about, .services, .portfolio, .contact {
-        min-height: calc(100vh - 50px); /* Same as 850px */
-        padding: 20px 15px; /* Tighter padding for small screens */
-      }
-
-      footer {
-        min-height: calc(100vh - 50px); /* Same as 850px */
+      .hero, .about, .services, .portfolio, .contact, footer {
+        min-height: calc(100vh - 50px); /* Adjusted for compact header */
         padding: 20px 15px; /* Tighter padding for small screens */
       }
     }
@@ -1000,11 +992,10 @@
   </div>
 
   <div class="main-content">
-    <button class="mode-toggle" aria-label="Toggle dark mode" onclick="toggleMode()">
-      <i class="fas fa-sun"></i>
-    </button>
-
     <header>
+      <button class="mode-toggle" aria-label="Toggle dark mode" onclick="toggleMode()">
+        <i class="fas fa-sun"></i>
+      </button>
       <img src="images/nuviria-logo-dark.png" alt="Nuviria Studio Logo" id="header-logo">
       <nav aria-label="Main navigation">
         <div class="nav-links">
@@ -1022,7 +1013,7 @@
       <div class="content-wrapper">
         <h1>Hacemos tus ideas realidad</h1>
         <p>Videos, animaciones y mucho más, todo en un solo lugar</p>
-        <p class="tagline">Ideas que encienden</p>
+        <p class="tagline">Ideas que prenden</p>
         <a href="#contacto" class="cta-button">Contanos tu idea</a>
       </div>
     </section>
@@ -1121,7 +1112,7 @@
 
     <section class="contact" id="contacto">
       <div class="content-wrapper">
-        <h2>Contactanos</h2>
+        <h2>Contáctanos</h2>
         <form>
           <input type="text" placeholder="Nombre" required aria-label="Nombre">
           <input type="email" placeholder="Email" required aria-label="Email">
@@ -1150,7 +1141,7 @@
         <a href="#inicio">
           <img src="images/nuviria-logo-pie.png" alt="Nuviria Studio Logo" id="footer-logo">
         </a>
-        <p class="footer-tagline">Ideas que encienden</p>
+        <p class="footer-tagline">Ideas que prenden</p>
         <p>
           <a href="https://www.instagram.com/nuviria/" target="_blank">Instagram</a> |
           <a href="#" target="_blank">LinkedIn</a> |
@@ -1172,6 +1163,10 @@
       const fullscreenClose = document.getElementById('fullscreen-close');
       const playPauseButton = document.getElementById('fullscreen-play-pause');
       const muteButton = document.getElementById('fullscreen-mute');
+      const header = document.querySelector('header');
+
+      // Debug: Verify header position
+      console.log('Header position:', window.getComputedStyle(header).position);
 
       function hideLoadingScreen() {
         loadingScreen.classList.add('hidden');
@@ -1292,13 +1287,12 @@
         }
       }
 
-      // Smooth scrolling
+      // Smooth scrolling with header offset
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
           const targetId = this.getAttribute('href').substring(1);
           const targetSection = document.getElementById(targetId);
-          const header = document.querySelector('header');
           const headerHeight = header.getBoundingClientRect().height;
           const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - headerHeight;
           window.scrollTo({
